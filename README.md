@@ -8,4 +8,6 @@ Offline Android Face 1:N Search With Liveness Detection &amp; Anti Spoofing SDK 
 预计第二季度推出，大概率是 630
 
 
-![image](https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/82932d93-ea98-4b0d-be25-27ae5adf5dba)
+<div align=center>
+<img src="https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/82932d93-ea98-4b0d-be25-27ae5adf5dba" width = 33% height = 33% />
+</div>   
