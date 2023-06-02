@@ -10,5 +10,5 @@ Offline Android Face 1:N Search With Liveness Detection &amp; Anti Spoofing SDK 
 </div>   
 
 
-https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/e9c2360b-e8fd-4eaf-9530-4eb87d8b8286
+
 
