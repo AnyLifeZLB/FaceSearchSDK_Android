@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:customAttr="http://schemas.android.com/apk/res-auto"
+    tools:context=".FaceSearchActivity">
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_camerax"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.ai.facesearch.view.FaceCoverView
+        android:id="@+id/faceCoverView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        customAttr:circle_margin="22dp"
+        customAttr:tip_text_size="20sp"
+        customAttr:tip_text_color="@color/colorPrimary"
+        customAttr:progress_start_color="@color/yellow"
+        customAttr:progress_end_color="@color/red"
+        customAttr:tip_text="请人脸正对取景圆框" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:layout_margin="11dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:textSize="17sp"
+        android:gravity="center"
+        android:layout_marginBottom="22dp"
+        android:text="It is a tips"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_camerax" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
