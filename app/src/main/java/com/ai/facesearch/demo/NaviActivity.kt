@@ -8,12 +8,16 @@ import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ai.facesearch.FaceApplication.Companion.STORAGE_FACE_DIR
 import com.ai.facesearch.demo.databinding.ActivityNaviBinding
 import com.ai.facesearch.demo.onlytest.FaceImageEditActivity
 import com.ai.facesearch.search.FaceImagesManger
+import com.airbnb.lottie.LottieAnimationView
+import com.lzf.easyfloat.EasyFloat
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -50,11 +54,15 @@ class NaviActivity : AppCompatActivity(), PermissionCallbacks {
 
         //验证复制图片
         binding.copyFaceImages.setOnClickListener {
-            MainScope().launch {
-                //DiaLog
+
+            binding.copyFaceImages.isClickable = false
+            Toast.makeText(baseContext, "复制中...", Toast.LENGTH_LONG).show()
+            showAppFloat(baseContext)
+            CoroutineScope(Dispatchers.Main).launch {
                 copyManyTestFaceImages(application)
-                Toast.makeText(baseContext,"已经复制导入验证图片",Toast.LENGTH_SHORT).show()
+                EasyFloat.hide("speed")
                 //Dismiss Dialog
+                Toast.makeText(baseContext, "已经复制导入验证图片", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -117,6 +125,24 @@ class NaviActivity : AppCompatActivity(), PermissionCallbacks {
 
 
     companion object {
+
+
+        fun showAppFloat(context: Context) {
+            EasyFloat.with(context)
+                .setTag("speed")
+                .setGravity(Gravity.CENTER, 0, 0)
+                .setDragEnable(false)
+                .setLayout(R.layout.float_loading) {
+                    val entry: LottieAnimationView = it.findViewById(R.id.entry)
+                    entry.setAnimation(R.raw.loading2)
+                    entry.loop(true)
+                    entry.playAnimation()
+                }
+                .show()
+        }
+
+
+
 
         /**
          * 拷贝Assert 目录下的图片到App 指定目录，所涉及的人脸全为AI生成不涉及

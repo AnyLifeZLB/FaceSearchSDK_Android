@@ -14,17 +14,17 @@ import com.ai.facesearch.search.ProcessTipsCode.*
 import com.ai.facesearch.view.CameraXAnalyzeFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import java.io.File
 
 /**
- * 1：N 人脸搜索识别接入演示程序
+ * 1：N 人脸搜索识别接入演示程序，千张人脸毫秒级别
  *
  */
 class FaceSearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFaceSearchBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +54,7 @@ class FaceSearchActivity : AppCompatActivity() {
         val faceProcessBuilder = FaceProcessBuilder
             .Builder(applicationContext)
             .setLifecycleOwner(this)
-            .setThreshold(0.88f)                 //threshold（阈值）设置，范围仅限 0.7-0.9。 公测阶段不支持修改 ！！
+            .setThreshold(0.81f)                 //threshold（阈值）设置，范围仅限 0.7-0.9！
             .setLicenceKey("Y29tLkFJLnRlc3Q=")   //申请的License
             .setFaceLibFolder(STORAGE_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
             .setProcessCallBack(object : ProcessCallBack() {
@@ -63,7 +63,7 @@ class FaceSearchActivity : AppCompatActivity() {
                     binding.faceCoverView.setTipText(similar)
                     Glide.with(baseContext)
                         .load(STORAGE_FACE_DIR + File.separatorChar + similar)
-                        .apply(RequestOptions.bitmapTransform(CircleCrop()))
+                        .transform(RoundedCorners(11)) // 数字根据自己需求来改
                         .into(binding.image)
                 }
 
