@@ -39,7 +39,7 @@ class FaceSearchActivity : AppCompatActivity() {
 
 
         // 1. Camera 的初始化
-        val cameraLens=sharedPref.getInt("cameraFlag", 0)
+        val cameraLens=sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 0))
         val cameraXFragment = CameraXAnalyzeFragment.newInstance(cameraLens)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_camerax, cameraXFragment)
             .commit()
