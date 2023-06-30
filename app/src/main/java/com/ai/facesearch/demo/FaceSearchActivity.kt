@@ -14,6 +14,7 @@ import com.ai.facesearch.search.ProcessCallBack
 import com.ai.facesearch.search.ProcessTipsCode.*
 import com.ai.facesearch.view.CameraXAnalyzeFragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.io.File
 
@@ -55,7 +56,7 @@ class FaceSearchActivity : AppCompatActivity() {
         val faceProcessBuilder = FaceProcessBuilder
             .Builder(applicationContext)
             .setLifecycleOwner(this)
-            .setThreshold(0.81f)                 //threshold（阈值）设置，范围仅限 0.7-0.9！
+            .setThreshold(0.81f)         //threshold（阈值）设置，范围仅限 0.7-0.9！
             .setLicenceKey("hjhk2323")   //申请的License
             .setFaceLibFolder(STORAGE_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
             .setProcessCallBack(object : ProcessCallBack() {
@@ -64,6 +65,8 @@ class FaceSearchActivity : AppCompatActivity() {
                     binding.faceCoverView.setTipText(similar)
                     Glide.with(baseContext)
                         .load(STORAGE_FACE_DIR + File.separatorChar + similar)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .transform(RoundedCorners(11))
                         .into(binding.image)
                 }

@@ -25,6 +25,7 @@ import com.ai.facesearch.search.FaceImagesManger
 import com.ai.facesearch.utils.BitmapUtils
 import com.ai.facesearch.utils.FaceFileProviderUtils
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import kotlinx.coroutines.CoroutineScope
@@ -139,7 +140,10 @@ class FaceImageEditActivity : AppCompatActivity() {
     class FaceImageListAdapter(results: MutableList<String>) :
         BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_face_image_list_item, results) {
         override fun convert(helper: BaseViewHolder, item: String) {
-            Glide.with(context).load(item).into((helper.getView<View>(R.id.image) as ImageView))
+            Glide.with(context).load(item)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into((helper.getView<View>(R.id.image) as ImageView))
         }
     }
 
