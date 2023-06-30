@@ -90,7 +90,11 @@ class NaviActivity : AppCompatActivity(), PermissionCallbacks {
 
 
         binding.editFaceImage.setOnClickListener {
-            startActivity(Intent(baseContext, FaceImageEditActivity::class.java))
+            startActivity(Intent(baseContext, FaceImageEditActivity::class.java).putExtra("isAdd",false))
+        }
+
+        binding.addFaceImage.setOnClickListener {
+            startActivity(Intent(baseContext, FaceImageEditActivity::class.java).putExtra("isAdd",true))
         }
 
     }
@@ -134,14 +138,12 @@ class NaviActivity : AppCompatActivity(), PermissionCallbacks {
                 .setDragEnable(false)
                 .setLayout(R.layout.float_loading) {
                     val entry: LottieAnimationView = it.findViewById(R.id.entry)
-                    entry.setAnimation(R.raw.loading2)
+                    entry.setAnimation(R.raw.waiting)
                     entry.loop(true)
                     entry.playAnimation()
                 }
                 .show()
         }
-
-
 
 
         /**

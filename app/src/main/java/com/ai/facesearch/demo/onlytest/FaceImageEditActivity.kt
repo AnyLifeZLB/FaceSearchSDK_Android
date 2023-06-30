@@ -93,6 +93,12 @@ class FaceImageEditActivity : AppCompatActivity() {
             }
 
         }
+
+
+        if(intent.extras?.getBoolean("isAdd") == true){
+            dispatchTakePictureIntent()
+        }
+
     }
 
     /**

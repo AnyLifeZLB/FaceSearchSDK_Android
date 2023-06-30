@@ -1,5 +1,6 @@
 package com.ai.facesearch.demo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +14,7 @@ import com.ai.facesearch.search.ProcessCallBack
 import com.ai.facesearch.search.ProcessTipsCode.*
 import com.ai.facesearch.view.CameraXAnalyzeFragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import java.io.File
 
 /**
@@ -36,17 +35,19 @@ class FaceSearchActivity : AppCompatActivity() {
             startActivity(Intent(baseContext, FaceImageEditActivity::class.java))
         }
 
+        val sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE)
+
+
         // 1. Camera 的初始化
-        val cameraXFragment = CameraXAnalyzeFragment.newInstance(0)
+        val cameraLens=sharedPref.getInt("cameraFlag", 0)
+        val cameraXFragment = CameraXAnalyzeFragment.newInstance(cameraLens)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_camerax, cameraXFragment)
             .commit()
         cameraXFragment.setOnAnalyzerListener { imageProxy ->
             //可以加个红外检测之类的，有人靠近再启动检索服务
-            //低能耗社会
-            FaceSearchEngine.Companion().instance.runSearch(
-                imageProxy,
-                binding.faceCoverView.margin
-            )
+            if (!this@FaceSearchActivity.isDestroyed && !this@FaceSearchActivity.isFinishing) {
+                FaceSearchEngine.Companion().instance.runSearch(imageProxy, 0)
+            }
         }
 
 
@@ -55,7 +56,7 @@ class FaceSearchActivity : AppCompatActivity() {
             .Builder(applicationContext)
             .setLifecycleOwner(this)
             .setThreshold(0.81f)                 //threshold（阈值）设置，范围仅限 0.7-0.9！
-            .setLicenceKey("Y29tLkFJLnRlc3Q=")   //申请的License
+            .setLicenceKey("hjhk2323")   //申请的License
             .setFaceLibFolder(STORAGE_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
             .setProcessCallBack(object : ProcessCallBack() {
                 override fun onMostSimilar(similar: String?) {
@@ -63,7 +64,7 @@ class FaceSearchActivity : AppCompatActivity() {
                     binding.faceCoverView.setTipText(similar)
                     Glide.with(baseContext)
                         .load(STORAGE_FACE_DIR + File.separatorChar + similar)
-                        .transform(RoundedCorners(11)) // 数字根据自己需求来改
+                        .transform(RoundedCorners(11))
                         .into(binding.image)
                 }
 
@@ -72,7 +73,7 @@ class FaceSearchActivity : AppCompatActivity() {
                 }
 
                 override fun onLog(log: String?) {
-                    binding.tips.text=log
+                    binding.tips.text = log
                 }
             })
             .create()
