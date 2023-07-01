@@ -23,3 +23,5 @@ On Device Offline Android Face 1:N Search With Liveness Detection &amp; Anti Spo
 
 
 
+https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/2abe357d-a7c5-4e58-af09-5b7b2a6226f3
+
