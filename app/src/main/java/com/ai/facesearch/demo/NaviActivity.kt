@@ -47,7 +47,7 @@ class NaviActivity : AppCompatActivity(), PermissionCallbacks {
 
         binding.faceSearch.setOnClickListener {
             startActivity(
-                Intent(this@NaviActivity, FaceSearchActivity::class.java)
+                Intent(this@NaviActivity, FaceSearchJavaActivity::class.java)
             )
         }
 

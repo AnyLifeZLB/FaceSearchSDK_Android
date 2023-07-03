@@ -22,7 +22,7 @@ import java.io.File
  * 1：N 人脸搜索识别接入演示程序，千张人脸毫秒级别
  *
  */
-class FaceSearchActivity : AppCompatActivity() {
+class FaceSearchKotlinActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFaceSearchBinding
 
@@ -46,7 +46,7 @@ class FaceSearchActivity : AppCompatActivity() {
             .commit()
         cameraXFragment.setOnAnalyzerListener { imageProxy ->
             //可以加个红外检测之类的，有人靠近再启动检索服务
-            if (!this@FaceSearchActivity.isDestroyed && !this@FaceSearchActivity.isFinishing) {
+            if (!this@FaceSearchKotlinActivity.isDestroyed && !this@FaceSearchKotlinActivity.isFinishing) {
                 FaceSearchEngine.Companion().instance.runSearch(imageProxy, 0)
             }
         }
@@ -56,7 +56,7 @@ class FaceSearchActivity : AppCompatActivity() {
         val faceProcessBuilder = FaceProcessBuilder
             .Builder(applicationContext)
             .setLifecycleOwner(this)
-            .setThreshold(0.81f)         //threshold（阈值）设置，范围仅限 0.7-0.9！
+            .setThreshold(0.81f)         //识别成功阈值设置，范围仅限 0.7-0.9！建议0.8+
             .setLicenceKey("hjhk2323")   //申请的License
             .setFaceLibFolder(STORAGE_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
             .setProcessCallBack(object : ProcessCallBack() {

@@ -1,5 +1,5 @@
 # FaceSearchSDK_Android
-On Device Offline Android Face 1:N Search With Liveness Detection &amp; Anti Spoofing SDK  /  离线版Android 1:N 人脸检索，包含活体检测反作弊 
+On Device Offline Android Face 1:N Search 离线版Android 1:N 人脸识别检索，速度快，精度高
 
 
 目前检索速度够快了，千张人脸不到1秒，精确度 >99.5% ,兼容性持续优化中
@@ -8,8 +8,7 @@ On Device Offline Android Face 1:N Search With Liveness Detection &amp; Anti Spo
 也可以点击[App 内置200张Ai人脸头像] 模拟N较大的情况，理论上N支持万张以上
 
 已经适配Android 6.0+ .还有兼容性问题请联系 anylife.zlb@gmail.com
-
-
+    
 
 
 <div align=center>
@@ -18,9 +17,7 @@ On Device Offline Android Face 1:N Search With Liveness Detection &amp; Anti Spo
 
 
 
-
 ### This is Demo Video
-
 
 
 https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/2abe357d-a7c5-4e58-af09-5b7b2a6226f3

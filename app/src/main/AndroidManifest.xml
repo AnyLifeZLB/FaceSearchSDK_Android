@@ -16,8 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
+        <activity
+            android:name=".FaceSearchJavaActivity"
+            android:exported="false" />
         <activity
             android:name=".onlytest.FaceImageEditActivity"
             android:exported="false">
@@ -36,12 +37,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FaceSearchActivity"
+            android:name=".FaceSearchKotlinActivity"
             android:exported="false"
             android:launchMode="singleTop" />
-
-
-
     </application>
 
 </manifest>
