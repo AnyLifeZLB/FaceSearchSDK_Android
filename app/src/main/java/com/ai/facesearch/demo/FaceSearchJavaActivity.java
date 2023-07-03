@@ -33,7 +33,6 @@ import java.io.File;
 
 /**
  * 应网友要求默认使用java 版本演示
- *
  */
 public class FaceSearchJavaActivity extends AppCompatActivity {
     private ActivityFaceSearchBinding binding;
@@ -114,17 +113,31 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
         binding.faceCoverView.setTipText("提示码：$code");
 
         switch (code) {
-            case MASK_DETECTION : binding.faceCoverView.setTipText("请摘下口罩");
-            case NO_LIVE_FACE : binding.faceCoverView.setTipText("未检测到人脸");
-            case EMGINE_INITING : binding.faceCoverView.setTipText("初始化中");
-            case FACE_DIR_EMPTY : binding.faceCoverView.setTipText("人脸库为空");
-            case NO_MATCHED : {
+            case MASK_DETECTION:
+                binding.faceCoverView.setTipText("请摘下口罩");
+                break;
+
+            case NO_LIVE_FACE:
+                binding.faceCoverView.setTipText("未检测到人脸");
+                break;
+
+            case EMGINE_INITING:
+                binding.faceCoverView.setTipText("初始化中");
+                break;
+
+            case FACE_DIR_EMPTY:
+                binding.faceCoverView.setTipText("人脸库为空");
+                break;
+
+            case NO_MATCHED: {
                 binding.faceCoverView.setTipText("没有匹配项");
                 VoicePlayer.getInstance().play(R.raw.fail);
+                break;
             }
 
-            case SEARCHING : {
+            case SEARCHING: {
                 binding.faceCoverView.setTipText("");
+                break;
             }
         }
     }
