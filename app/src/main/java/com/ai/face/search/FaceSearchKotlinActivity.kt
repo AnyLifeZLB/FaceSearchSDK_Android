@@ -1,13 +1,12 @@
-package com.ai.facesearch.demo
+package com.ai.face.search
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ai.facesearch.FaceApplication.Companion.STORAGE_FACE_DIR
+import com.ai.face.FaceApplication.Companion.STORAGE_FACE_DIR
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchBinding
-import com.ai.facesearch.demo.onlytest.FaceImageEditActivity
-import com.ai.facesearch.demo.onlytest.VoicePlayer
+import com.ai.facesearch.demo.R
 import com.ai.facesearch.search.FaceProcessBuilder
 import com.ai.facesearch.search.FaceSearchEngine
 import com.ai.facesearch.search.ProcessCallBack
@@ -61,7 +60,7 @@ class FaceSearchKotlinActivity : AppCompatActivity() {
             .setFaceLibFolder(STORAGE_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
             .setProcessCallBack(object : ProcessCallBack() {
                 override fun onMostSimilar(similar: String?) {
-                    VoicePlayer.getInstance().play(R.raw.success)
+//                    VoicePlayer.getInstance().play(R.raw.success)
                     binding.faceCoverView.setTipText(similar)
                     Glide.with(baseContext)
                         .load(STORAGE_FACE_DIR + File.separatorChar + similar)
@@ -102,7 +101,7 @@ class FaceSearchKotlinActivity : AppCompatActivity() {
             FACE_DIR_EMPTY -> binding.faceCoverView.setTipText("人脸库为空")
             NO_MATCHED -> {
                 binding.faceCoverView.setTipText("没有匹配项")
-                VoicePlayer.getInstance().play(R.raw.fail)
+//                VoicePlayer.getInstance().play(R.raw.fail)
             }
 
             SEARCHING -> {

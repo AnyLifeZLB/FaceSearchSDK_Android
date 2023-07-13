@@ -1,14 +1,12 @@
-package com.ai.facesearch.demo.onlytest
+package com.ai.face.search
 
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -18,8 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ai.facesearch.FaceApplication.Companion.STORAGE_FACE_DIR
-import com.ai.facesearch.demo.NaviActivity.Companion.copyManyTestFaceImages
+import com.ai.face.FaceApplication.Companion.STORAGE_FACE_DIR
+import com.ai.face.search.SearchNaviActivity.Companion.copyManyTestFaceImages
 import com.ai.facesearch.demo.R
 import com.ai.facesearch.search.FaceImagesManger
 import com.ai.facesearch.utils.BitmapUtils
@@ -33,7 +31,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.IOException
 import java.util.Arrays

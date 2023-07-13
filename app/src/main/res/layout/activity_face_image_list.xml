@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".onlytest.FaceImageEditActivity">
+    tools:context="com.ai.face.search.FaceImageEditActivity">
 
 
     <androidx.appcompat.widget.Toolbar

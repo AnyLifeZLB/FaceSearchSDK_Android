@@ -1,4 +1,4 @@
-package com.ai.facesearch.demo
+package com.ai.face.search
 
 import android.Manifest
 import android.app.Application
@@ -11,15 +11,13 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.ai.facesearch.FaceApplication.Companion.STORAGE_FACE_DIR
-import com.ai.facesearch.demo.databinding.ActivityNaviBinding
-import com.ai.facesearch.demo.onlytest.FaceImageEditActivity
+import com.ai.face.FaceApplication.Companion.STORAGE_FACE_DIR
+import com.ai.facesearch.demo.R
 import com.ai.facesearch.search.FaceImagesManger
 import com.airbnb.lottie.LottieAnimationView
 import com.lzf.easyfloat.EasyFloat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pub.devrel.easypermissions.EasyPermissions
@@ -33,7 +31,7 @@ import java.io.InputStream
  *
  *
  */
-class NaviActivity : AppCompatActivity(), PermissionCallbacks {
+class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
     private lateinit var binding: ActivityNaviBinding
 
@@ -47,7 +45,7 @@ class NaviActivity : AppCompatActivity(), PermissionCallbacks {
 
         binding.faceSearch.setOnClickListener {
             startActivity(
-                Intent(this@NaviActivity, FaceSearchJavaActivity::class.java)
+                Intent(this@SearchNaviActivity, FaceSearchJavaActivity::class.java)
             )
         }
 

@@ -1,6 +1,6 @@
-package com.ai.facesearch.demo;
+package com.ai.face.search;
 
-import static com.ai.facesearch.FaceApplication.STORAGE_FACE_DIR;
+import static com.ai.face.FaceApplication.STORAGE_FACE_DIR;
 import static com.ai.facesearch.search.ProcessTipsCode.EMGINE_INITING;
 import static com.ai.facesearch.search.ProcessTipsCode.FACE_DIR_EMPTY;
 import static com.ai.facesearch.search.ProcessTipsCode.MASK_DETECTION;
@@ -8,19 +8,14 @@ import static com.ai.facesearch.search.ProcessTipsCode.NO_LIVE_FACE;
 import static com.ai.facesearch.search.ProcessTipsCode.NO_MATCHED;
 import static com.ai.facesearch.search.ProcessTipsCode.SEARCHING;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.camera.core.ImageProxy;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 
-import com.ai.facesearch.demo.databinding.ActivityFaceSearchBinding;
-import com.ai.facesearch.demo.onlytest.FaceImageEditActivity;
-import com.ai.facesearch.demo.onlytest.VoicePlayer;
+import com.ai.facesearch.demo.R;
 import com.ai.facesearch.search.FaceProcessBuilder;
 import com.ai.facesearch.search.FaceSearchEngine;
 import com.ai.facesearch.search.ProcessCallBack;

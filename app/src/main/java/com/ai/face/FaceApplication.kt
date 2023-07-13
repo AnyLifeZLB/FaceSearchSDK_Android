@@ -1,4 +1,4 @@
-package com.ai.facesearch
+package com.ai.face
 
 import android.app.Application
 import java.io.File
@@ -16,8 +16,6 @@ class FaceApplication : Application() {
         // 人脸文件保存路径，建议放在内部存储目录，不要暴露出去
         STORAGE_FACE_DIR = filesDir.path + "/faceSearch"
 
-
-        // SDK 已经初始化，后面都可以不用
         val file=File(STORAGE_FACE_DIR)
         if (!file.exists()) file.mkdirs()
 

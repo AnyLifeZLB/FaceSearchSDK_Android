@@ -9,7 +9,7 @@
         android:required="true" />
 
     <application
-        android:name="com.ai.facesearch.FaceApplication"
+        android:name="com.ai.face.FaceApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,17 +17,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".FaceSearchJavaActivity"
+            android:name="com.ai.face.search.FaceSearchJavaActivity"
             android:exported="false" />
         <activity
-            android:name=".onlytest.FaceImageEditActivity"
+            android:name="com.ai.face.search.FaceImageEditActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".NaviActivity"
+            android:name="com.ai.face.search.SearchNaviActivity"
             android:configChanges="orientation"
             android:exported="true">
             <intent-filter>
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FaceSearchKotlinActivity"
+            android:name="com.ai.face.search.FaceSearchKotlinActivity"
             android:exported="false"
             android:launchMode="singleTop" />
     </application>
