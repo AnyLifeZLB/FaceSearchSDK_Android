@@ -3,25 +3,28 @@ package com.ai.face.search
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.ai.face.FaceApplication.Companion.STORAGE_FACE_DIR
+import com.ai.face.FaceApplication.Companion.CACHE_SEARCH_FACE_DIR
+import com.ai.face.base.utils.FaceFileProviderUtils
+import com.ai.face.faceSearch.search.FaceSearchImagesManger
+import com.ai.face.faceSearch.utils.BitmapUtils
 import com.ai.face.search.SearchNaviActivity.Companion.copyManyTestFaceImages
 import com.ai.facesearch.demo.R
-import com.ai.facesearch.search.FaceImagesManger
-import com.ai.facesearch.utils.BitmapUtils
-import com.ai.facesearch.utils.FaceFileProviderUtils
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -34,8 +37,8 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.IOException
 import java.util.Arrays
-import java.util.Date
 import java.util.Locale
+import java.util.UUID
 
 /**
  * 增删改 编辑人脸图片
@@ -63,22 +66,22 @@ class FaceImageEditActivity : AppCompatActivity() {
             AlertDialog.Builder(this@FaceImageEditActivity)
                 .setTitle("确定要删除" + File(faceImageList[i]).name)
                 .setMessage("删除后对应的人将无法被程序识别")
-                .setPositiveButton("确定") { dialog: DialogInterface?, which: Int ->
+                .setPositiveButton("确定") { _: DialogInterface?, _: Int ->
                     //删除一张照片
-                    FaceImagesManger.Companion().getInstance(application)
-                        ?.deleteFaceImage(faceImageList[i])
+                    FaceSearchImagesManger.c.getInstance(application)?.deleteFaceImage(faceImageList[i])
                     loadImageList()
                     faceImageListAdapter.notifyDataSetChanged()
                 }
-                .setNegativeButton("取消") { dialog: DialogInterface?, which: Int -> }
+                .setNegativeButton("取消") { _: DialogInterface?, _: Int -> }
                 .show()
             false
         }
+
         faceImageListAdapter.setEmptyView(R.layout.empty_layout)
 
         faceImageListAdapter.emptyLayout?.setOnClickListener { v: View? ->
-
             Toast.makeText(baseContext, "复制中...", Toast.LENGTH_LONG).show()
+            SearchNaviActivity.showAppFloat(baseContext)
 
             CoroutineScope(Dispatchers.IO).launch {
                 copyManyTestFaceImages(application)
@@ -89,9 +92,7 @@ class FaceImageEditActivity : AppCompatActivity() {
                     faceImageListAdapter.notifyDataSetChanged()
                 }
             }
-
         }
-
 
         if(intent.extras?.getBoolean("isAdd") == true){
             dispatchTakePictureIntent()
@@ -104,7 +105,7 @@ class FaceImageEditActivity : AppCompatActivity() {
      */
     private fun loadImageList() {
         faceImageList.clear()
-        val file = File(STORAGE_FACE_DIR)
+        val file = File(CACHE_SEARCH_FACE_DIR)
         val subFaceFiles = file.listFiles()
         if (subFaceFiles != null) {
             Arrays.sort(subFaceFiles, object : Comparator<File> {
@@ -144,6 +145,58 @@ class FaceImageEditActivity : AppCompatActivity() {
         }
     }
 
+
+    /**
+     * 确认是否保存底图
+     *
+     * @param bitmap
+     */
+    private fun showConfirmDialog(bitmap: Bitmap) {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        val dialog = builder.create()
+        val dialogView = View.inflate(this, R.layout.dialog_confirm_base, null)
+
+        //设置对话框布局
+        dialog.setView(dialogView)
+        dialog.setCanceledOnTouchOutside(false)
+        val basePreView = dialogView.findViewById<ImageView>(R.id.preview)
+        basePreView.setImageBitmap(bitmap)
+        val btnOK = dialogView.findViewById<Button>(R.id.btn_ok)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
+        val editText = dialogView.findViewById<EditText>(R.id.edit_text) //face id
+
+        editText.isFocusable = true
+        editText.isFocusableInTouchMode = true
+        editText.requestFocus()
+
+        btnOK.setOnClickListener { v: View? ->
+            if (!TextUtils.isEmpty(editText.text.toString())) {
+                val name = editText.text.toString()+".jpg"
+
+                Toast.makeText(baseContext, "处理中...", Toast.LENGTH_LONG).show()
+                //Kotlin 混淆操作后协程操作失效了，因为是异步操作只能等一下
+                CoroutineScope(Dispatchers.IO).launch {
+
+                    FaceSearchImagesManger.c.getInstance(application)
+                        ?.insertOrUpdateFaceImage(bitmap, CACHE_SEARCH_FACE_DIR+File.separatorChar+name)
+                    delay(300)
+                    MainScope().launch {
+                        loadImageList()
+                        faceImageListAdapter.notifyDataSetChanged()
+                    }
+                }
+                dialog.dismiss()
+            }else{
+                Toast.makeText(baseContext, "请确认ID 名字", Toast.LENGTH_LONG).show()
+            }
+        }
+        btnCancel.setOnClickListener { v: View? ->
+            dialog.dismiss()
+        }
+        dialog.setCanceledOnTouchOutside(false)
+        dialog.show()
+    }
+
     /**
      * 处理自拍
      *
@@ -151,18 +204,9 @@ class FaceImageEditActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            val bitmap = BitmapUtils.Companion().getFixedBitmap(currentPhotoPath!!, contentResolver)
-            Toast.makeText(baseContext, "处理中...", Toast.LENGTH_LONG).show()
-            //Kotlin 混淆操作后协程操作失效了，因为是异步操作只能等一下
-            CoroutineScope(Dispatchers.IO).launch {
-                FaceImagesManger.Companion().getInstance(application)
-                    ?.insertOrUpdateFaceImage(bitmap, "$STORAGE_FACE_DIR/It is you.jpg")
-                delay(300)
-                MainScope().launch {
-                    loadImageList()
-                    faceImageListAdapter.notifyDataSetChanged()
-                }
-            }
+            val bitmap = BitmapUtils.a.getFixedBitmap(currentPhotoPath!!, contentResolver)
+            //加一个确定ID的操作
+            showConfirmDialog(bitmap)
         }
     }
 
@@ -183,6 +227,8 @@ class FaceImageEditActivity : AppCompatActivity() {
         }
     }
 
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
@@ -194,19 +240,18 @@ class FaceImageEditActivity : AppCompatActivity() {
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
-        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val imageFileName = "JPEG_" + timeStamp + "_"
+        val imageFileName = "JPEG_" + UUID.randomUUID() + "_"
         val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val image = File.createTempFile(
             imageFileName,  /* prefix */
-            ".jpg",  /* suffix */
-            storageDir /* directory */
+            ".jpg",         /* suffix */
+            storageDir      /* directory */
         )
-
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.absolutePath
         return image
     }
+
 
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -233,7 +278,9 @@ class FaceImageEditActivity : AppCompatActivity() {
         }
     }
 
+
     companion object {
         const val REQUEST_TAKE_PHOTO = 1
     }
+
 }

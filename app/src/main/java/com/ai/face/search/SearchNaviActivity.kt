@@ -11,9 +11,10 @@ import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.ai.face.FaceApplication.Companion.STORAGE_FACE_DIR
+import com.ai.face.FaceApplication
+import com.ai.face.faceSearch.search.FaceSearchImagesManger
 import com.ai.facesearch.demo.R
-import com.ai.facesearch.search.FaceImagesManger
+import com.ai.facesearch.demo.databinding.ActivityFaceSearchNaviBinding
 import com.airbnb.lottie.LottieAnimationView
 import com.lzf.easyfloat.EasyFloat
 import kotlinx.coroutines.CoroutineScope
@@ -26,19 +27,21 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 
+
 /**
- * 演示导航Navi，目前支持千张图片1秒级搜索，后续聚焦降低App体积和精确度
+ * 演示导航Navi，主要界面App
  *
  *
  */
 class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
-    private lateinit var binding: ActivityNaviBinding
+    private lateinit var binding: ActivityFaceSearchNaviBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityNaviBinding.inflate(layoutInflater)
+        binding = ActivityFaceSearchNaviBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         checkNeededPermission()
@@ -52,20 +55,21 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
         //验证复制图片
         binding.copyFaceImages.setOnClickListener {
-
             binding.copyFaceImages.isClickable = false
-            Toast.makeText(baseContext, "复制中...", Toast.LENGTH_LONG).show()
+            Toast.makeText(baseContext, "复制处理中...", Toast.LENGTH_LONG).show()
             showAppFloat(baseContext)
+
+            Toast.makeText(baseContext, "复制处理中...", Toast.LENGTH_LONG).show()
+
             CoroutineScope(Dispatchers.Main).launch {
                 copyManyTestFaceImages(application)
                 EasyFloat.hide("speed")
-                //Dismiss Dialog
                 Toast.makeText(baseContext, "已经复制导入验证图片", Toast.LENGTH_SHORT).show()
             }
         }
 
 
-
+        //切换摄像头
         binding.changeCamera.setOnClickListener {
             val sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE)
 
@@ -88,14 +92,12 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
 
         binding.editFaceImage.setOnClickListener {
-            startActivity(Intent(baseContext, FaceImageEditActivity::class.java).putExtra("isAdd",false))
+            startActivity(Intent(baseContext, FaceImageEditActivity::class.java))
         }
 
-        binding.addFaceImage.setOnClickListener {
-            startActivity(Intent(baseContext, FaceImageEditActivity::class.java).putExtra("isAdd",true))
-        }
 
     }
+
 
     /**
      * 统一全局的拦截权限请求，给提示
@@ -128,8 +130,10 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
     companion object {
 
-
         fun showAppFloat(context: Context) {
+
+            if (EasyFloat.getFloatView("speed")?.isShown == true) return
+
             EasyFloat.with(context)
                 .setTag("speed")
                 .setGravity(Gravity.CENTER, 0, 0)
@@ -144,25 +148,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
         }
 
 
-        /**
-         * 拷贝Assert 目录下的图片到App 指定目录，所涉及的人脸全为AI生成不涉及
-         *
-         */
-        suspend fun copyManyTestFaceImages(context: Application) = withContext(Dispatchers.IO) {
-            val assetManager = context.assets
-            val subFaceFiles = context.assets.list("")
-            if (subFaceFiles != null) {
-                for (index in subFaceFiles.indices) {
-                    FaceImagesManger.Companion().getInstance(context)?.insertOrUpdateFaceImage(
-                        getBitmapFromAsset(
-                            assetManager,
-                            subFaceFiles[index]
-                        ), STORAGE_FACE_DIR + File.separatorChar + subFaceFiles[index]
-                    )
-                }
-            }
-        }
-
         private fun getBitmapFromAsset(assetManager: AssetManager, strName: String): Bitmap? {
             val istr: InputStream
             var bitmap: Bitmap?
@@ -175,6 +160,27 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             return bitmap
         }
 
+
+        /**
+         * 拷贝人脸数据,CopyFileUtilsOnlyTest 仅仅是辅助调试，后期会去除
+         *
+         */
+        suspend fun copyManyTestFaceImages(context: Application) = withContext(Dispatchers.IO) {
+
+            val assetManager = context.assets
+            val subFaceFiles = context.assets.list("")
+            if (subFaceFiles != null) {
+                for (index in subFaceFiles.indices) {
+                    FaceSearchImagesManger.c.getInstance(context)?.insertOrUpdateFaceImage(
+                        getBitmapFromAsset(
+                            assetManager,
+                            subFaceFiles[index]
+                        ),
+                        FaceApplication.CACHE_SEARCH_FACE_DIR + File.separatorChar + subFaceFiles[index]
+                    )
+                }
+            }
+        }
     }
 
 }

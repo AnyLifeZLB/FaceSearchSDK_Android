@@ -1,11 +1,10 @@
 # FaceSearchSDK_Android
-On Device Offline Android Face 1:N Search 离线版Android 1:N 人脸识别检索，速度快，精度高
+ 这是独立版本的人脸识别搜索，离线版Android 1:N 人脸识别检索，速度快，精度高。On Device Offline Android Face 1:N Search
 
 
 ## 独立SDK 介绍
-  应用户要求，剪裁包体积，只需要人脸1：N 搜索。
+  应用户要求，剪裁包体积，只需要人脸1：N 搜索，演示快速接入SDK。
   主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK
-
 
 
 ## 简要介绍
@@ -15,9 +14,6 @@ On Device Offline Android Face 1:N Search 离线版Android 1:N 人脸识别检�
 也可以点击[App 内置200张Ai人脸头像] 模拟N较大的情况，理论上N支持万张以上
 
 已经适配Android 6.0+ .还有兼容性问题请联系 anylife.zlb@gmail.com
-    
-
-
 
 
 

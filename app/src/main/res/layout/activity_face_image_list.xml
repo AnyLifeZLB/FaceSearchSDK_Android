@@ -6,6 +6,7 @@
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="com.ai.face.search.FaceImageEditActivity">
 
 
@@ -14,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways"
         app:subtitleTextColor="#FFF"
         app:titleTextColor="#FFF"
         app:title="人脸编辑"

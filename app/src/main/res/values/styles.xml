@@ -28,5 +28,13 @@
     </style>
 
 
+    <!--colorControlNormal 为没有获取焦点时候下划线的颜色-->
+    <!--colorControlActivated 为获取焦点时候光标与下划线的颜色-->
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/yellow</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
+
 
 </resources>

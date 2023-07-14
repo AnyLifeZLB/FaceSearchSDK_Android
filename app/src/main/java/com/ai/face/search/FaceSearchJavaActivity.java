@@ -1,25 +1,26 @@
 package com.ai.face.search;
 
-import static com.ai.face.FaceApplication.STORAGE_FACE_DIR;
-import static com.ai.facesearch.search.ProcessTipsCode.EMGINE_INITING;
-import static com.ai.facesearch.search.ProcessTipsCode.FACE_DIR_EMPTY;
-import static com.ai.facesearch.search.ProcessTipsCode.MASK_DETECTION;
-import static com.ai.facesearch.search.ProcessTipsCode.NO_LIVE_FACE;
-import static com.ai.facesearch.search.ProcessTipsCode.NO_MATCHED;
-import static com.ai.facesearch.search.ProcessTipsCode.SEARCHING;
-
-import androidx.appcompat.app.AppCompatActivity;
+import static com.ai.face.FaceApplication.CACHE_SEARCH_FACE_DIR;
+import static com.ai.face.faceSearch.search.SearchProcessTipsCode.EMGINE_INITING;
+import static com.ai.face.faceSearch.search.SearchProcessTipsCode.FACE_DIR_EMPTY;
+import static com.ai.face.faceSearch.search.SearchProcessTipsCode.MASK_DETECTION;
+import static com.ai.face.faceSearch.search.SearchProcessTipsCode.NO_LIVE_FACE;
+import static com.ai.face.faceSearch.search.SearchProcessTipsCode.NO_MATCHED;
+import static com.ai.face.faceSearch.search.SearchProcessTipsCode.SEARCHING;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.ai.face.base.view.CameraXFragment;
+import com.ai.face.faceSearch.search.FaceSearchEngine;
+import com.ai.face.faceSearch.search.SearchProcessBuilder;
+import com.ai.face.faceSearch.search.SearchProcessCallBack;
 import com.ai.facesearch.demo.R;
-import com.ai.facesearch.search.FaceProcessBuilder;
-import com.ai.facesearch.search.FaceSearchEngine;
-import com.ai.facesearch.search.ProcessCallBack;
-import com.ai.facesearch.view.CameraXAnalyzeFragment;
+import com.ai.facesearch.demo.databinding.ActivityFaceSearchBinding;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -27,11 +28,10 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import java.io.File;
 
 /**
- * 应网友要求默认使用java 版本演示
+ * 应多位用户要求，默认使用java 版本演示怎么快速接入SDK
  */
 public class FaceSearchJavaActivity extends AppCompatActivity {
     private ActivityFaceSearchBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,15 +45,14 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE);
 
-
         // 1. Camera 的初始化
         int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 0));
-        CameraXAnalyzeFragment cameraXFragment = CameraXAnalyzeFragment.newInstance(cameraLens);
+        CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLens);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_camerax, cameraXFragment)
                 .commit();
 
         cameraXFragment.setOnAnalyzerListener(imageProxy -> {
-            //可以加个红外检测之类的，有人靠近再启动检索服务
+            //可以加个红外检测之类的，有人靠近再启动检索服务，不然机器老化快
             if (!isDestroyed() && !isFinishing()) {
                 FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
             }
@@ -61,18 +60,18 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
 
 
         // 2.各种参数的初始化设置
-        FaceProcessBuilder faceProcessBuilder = new FaceProcessBuilder.Builder(getApplication())
+
+        SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(getApplication())
                 .setLifecycleOwner(this)
-                .setThreshold(0.81f)         //识别成功阈值设置，范围仅限 0.7-0.9！建议0.8+
-                .setLicenceKey("hjhk2323")   //申请的License
-                .setFaceLibFolder(STORAGE_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
-                .setProcessCallBack(new ProcessCallBack() {
+                .setThreshold(0.85f)         //识别成功阈值设置，范围仅限 0.7-0.9！建议0.8+
+                .setLicenceKey("yourLicense key")   //申请的License
+                .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
+                .setProcessCallBack(new SearchProcessCallBack() {
                     @Override
                     public void onMostSimilar(String similar) {
-                        VoicePlayer.getInstance().play(R.raw.success);
-                        binding.faceCoverView.setTipText(similar);
+                        binding.searchTips.setText(similar);
                         Glide.with(getBaseContext())
-                                .load(STORAGE_FACE_DIR + File.separatorChar + similar)
+                                .load(CACHE_SEARCH_FACE_DIR + File.separatorChar + similar)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .transform(new RoundedCorners(11))
@@ -104,39 +103,37 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
      * @param code
      */
     private void showPrecessTips(int code) {
-        binding.image.setImageResource(R.drawable.ic_launcher_foreground);
-        binding.faceCoverView.setTipText("提示码：$code");
+        binding.image.setImageResource(R.mipmap.ic_launcher_foreground);
+        binding.searchTips.setText("提示码：$code");
 
         switch (code) {
             case MASK_DETECTION:
-                binding.faceCoverView.setTipText("请摘下口罩");
+                binding.searchTips.setText("请摘下口罩"); //默认无
                 break;
 
             case NO_LIVE_FACE:
-                binding.faceCoverView.setTipText("未检测到人脸");
+                binding.searchTips.setText("未检测到人脸");
                 break;
 
             case EMGINE_INITING:
-                binding.faceCoverView.setTipText("初始化中");
+                binding.searchTips.setText("初始化中");
                 break;
 
             case FACE_DIR_EMPTY:
-                binding.faceCoverView.setTipText("人脸库为空");
+                binding.searchTips.setText("人脸库为空");
                 break;
 
             case NO_MATCHED: {
-                binding.faceCoverView.setTipText("没有匹配项");
-                VoicePlayer.getInstance().play(R.raw.fail);
+                binding.searchTips.setText("没有匹配项");
                 break;
             }
 
             case SEARCHING: {
-                binding.faceCoverView.setTipText("");
+                binding.searchTips.setText("");
                 break;
             }
         }
     }
-
 
     /**
      * 销毁，停止

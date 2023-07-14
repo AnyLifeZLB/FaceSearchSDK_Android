@@ -3,7 +3,6 @@
     package="com.ai.facesearch.demo">
 
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -16,9 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="com.ai.face.search.FaceSearchJavaActivity"
-            android:exported="false" />
         <activity
             android:name="com.ai.face.search.FaceImageEditActivity"
             android:exported="false">
@@ -37,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ai.face.search.FaceSearchKotlinActivity"
+            android:name="com.ai.face.search.FaceSearchJavaActivity"
             android:exported="false"
             android:launchMode="singleTop" />
     </application>

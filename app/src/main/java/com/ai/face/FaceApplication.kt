@@ -12,19 +12,18 @@ class FaceApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        CACHE_SEARCH_FACE_DIR = filesDir.path + "/faceSearch"    //1:N 人脸搜索目录
 
-        // 人脸文件保存路径，建议放在内部存储目录，不要暴露出去
-        STORAGE_FACE_DIR = filesDir.path + "/faceSearch"
-
-        val file=File(STORAGE_FACE_DIR)
+        val file= File(CACHE_SEARCH_FACE_DIR) //提前建目录方便导入数据演示
         if (!file.exists()) file.mkdirs()
-
     }
 
 
-     companion object {
-        lateinit var STORAGE_FACE_DIR: String
+    companion object {
+
+        lateinit var CACHE_SEARCH_FACE_DIR: String  //1:N 人脸搜索目录
     }
+
 
 
 }
