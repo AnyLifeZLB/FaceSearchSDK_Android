@@ -62,7 +62,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //2023 07 07 重构独立依赖，可以减少体积
+    //2023 07 07  重构独立依赖，可以减少体积
     implementation 'io.github.anylifezlb:FaceSearchSDK:1.0.3'
 
     implementation 'androidx.core:core-ktx:1.9.0'
