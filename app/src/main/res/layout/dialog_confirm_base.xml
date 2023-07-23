@@ -17,22 +17,22 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="44dp"
                 android:background="@color/white"
                 android:gravity="center"
-                android:text="保存此图 ？"
-                android:visibility="gone"
+                android:text="保存此人脸图 ？"
+                android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                android:textSize="17sp" />
+                android:textSize="18sp" />
 
 
             <ImageView
                 android:id="@+id/preview"
                 android:layout_gravity="center"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="25dp"
-                android:layout_width="200dp"
-                android:layout_height="200dp"/>
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="188dp"
+                android:layout_height="188dp"/>
 
 
             <EditText
@@ -42,7 +42,7 @@
                 android:hint="输入自定义Face ID"
                 android:layout_gravity="center"
                 android:theme="@style/MyEditText"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="17dp"
                 android:textColorHint="@color/colorPrimary"
                 android:textColor="@color/colorAccent"
                 android:focusable="true"
@@ -53,7 +53,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="15dp"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp">

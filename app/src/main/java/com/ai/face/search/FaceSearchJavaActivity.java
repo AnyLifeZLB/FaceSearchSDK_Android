@@ -1,20 +1,16 @@
 package com.ai.face.search;
 
 import static com.ai.face.FaceApplication.CACHE_SEARCH_FACE_DIR;
-import static com.ai.face.faceSearch.search.SearchProcessTipsCode.EMGINE_INITING;
-import static com.ai.face.faceSearch.search.SearchProcessTipsCode.FACE_DIR_EMPTY;
-import static com.ai.face.faceSearch.search.SearchProcessTipsCode.MASK_DETECTION;
-import static com.ai.face.faceSearch.search.SearchProcessTipsCode.NO_LIVE_FACE;
-import static com.ai.face.faceSearch.search.SearchProcessTipsCode.NO_MATCHED;
-import static com.ai.face.faceSearch.search.SearchProcessTipsCode.SEARCHING;
+import static com.ai.face.faceSearch.search.SearchProcessTipsCode.*;
+import static com.ai.face.faceSearch.search.SearchProcessTipsCode.THRESHOLD_ERROR;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.ai.face.base.view.CameraXFragment;
 import com.ai.face.faceSearch.search.FaceSearchEngine;
 import com.ai.face.faceSearch.search.SearchProcessBuilder;
@@ -24,11 +20,11 @@ import com.ai.facesearch.demo.databinding.ActivityFaceSearchBinding;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-
 import java.io.File;
 
 /**
- * 应多位用户要求，默认使用java 版本演示怎么快速接入SDK
+ * 应多位用户要求，默认使用java 版本演示怎么快速接入SDK。JAVA FIRST
+ *
  */
 public class FaceSearchJavaActivity extends AppCompatActivity {
     private ActivityFaceSearchBinding binding;
@@ -44,10 +40,10 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
         });
 
         SharedPreferences sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE);
-        int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 0));
 
         // 1. Camera 的初始化。第一个参数0/1 指定前后摄像头； 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
-        CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLens,0.1f);
+        int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 0));
+        CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLens,0.11f);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_camerax, cameraXFragment)
                 .commit();
 
@@ -60,15 +56,15 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
 
 
         // 2.各种参数的初始化设置
-
         SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(getApplication())
                 .setLifecycleOwner(this)
-                .setThreshold(0.85f)         //识别成功阈值设置，范围仅限 0.7-0.9！建议0.8+
-                .setLicenceKey("yourLicense key")   //申请的License
-                .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
+                .setThreshold(0.82f)               //识别成功阈值设置，范围仅限 [0.8 , 0.9] 建议0.8+
+                .setLicenceKey("yourLicense key")  //合作的VIP定制客户群体需要
+                .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个人脸图片库的目录
                 .setProcessCallBack(new SearchProcessCallBack() {
                     @Override
                     public void onMostSimilar(String similar) {
+                        binding.searchTips.setVisibility(View.VISIBLE);
                         binding.searchTips.setText(similar);
                         Glide.with(getBaseContext())
                                 .load(CACHE_SEARCH_FACE_DIR + File.separatorChar + similar)
@@ -91,7 +87,7 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
                 }).create();
 
 
-        //3.初始化引擎，是个耗时耗资源操作
+        //3.初始化引擎
         FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 
     }
@@ -103,10 +99,17 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
      * @param code
      */
     private void showPrecessTips(int code) {
-        binding.image.setImageResource(R.mipmap.ic_launcher_foreground);
-        binding.searchTips.setText("提示码：$code");
-
+        binding.image.setImageResource(R.mipmap.ic_launcher);
+        binding.searchTips.setVisibility(View.VISIBLE);
         switch (code) {
+            default:
+                binding.searchTips.setText("提示码："+code);
+                break;
+
+            case THRESHOLD_ERROR :
+                binding.searchTips.setText("识别阈值Threshold范围为0.8-0.9");
+                break;
+
             case MASK_DETECTION:
                 binding.searchTips.setText("请摘下口罩"); //默认无
                 break;
@@ -124,12 +127,15 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
                 break;
 
             case NO_MATCHED: {
-                binding.searchTips.setText("没有匹配项");
+                //本次摄像头预览帧无匹配而已，会快速取下一帧进行分析检索
+                binding.searchTips.setText("");
+                binding.searchTips.setVisibility(View.INVISIBLE);
+
                 break;
             }
 
             case SEARCHING: {
-                binding.searchTips.setText("");
+                binding.searchTips.setText("搜索中");
                 break;
             }
         }

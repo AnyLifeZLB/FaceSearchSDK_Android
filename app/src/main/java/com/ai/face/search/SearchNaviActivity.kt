@@ -37,7 +37,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
     private lateinit var binding: ActivityFaceSearchNaviBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

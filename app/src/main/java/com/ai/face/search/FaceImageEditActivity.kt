@@ -81,8 +81,6 @@ class FaceImageEditActivity : AppCompatActivity() {
 
         faceImageListAdapter.emptyLayout?.setOnClickListener { v: View? ->
             Toast.makeText(baseContext, "复制中...", Toast.LENGTH_LONG).show()
-            SearchNaviActivity.showAppFloat(baseContext)
-
             CoroutineScope(Dispatchers.IO).launch {
                 copyManyTestFaceImages(application)
                 delay(800)

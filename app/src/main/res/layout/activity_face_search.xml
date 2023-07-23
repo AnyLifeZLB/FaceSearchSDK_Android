@@ -19,6 +19,8 @@
         android:id="@+id/face_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        customAttr:show_progress="false"
         customAttr:tip_text_size="20sp"
         customAttr:tip_text_color="@color/colorPrimary"
         customAttr:circle_margin="24dp" />
@@ -40,7 +42,7 @@
         android:layout_marginTop="7dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:gravity="center"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
