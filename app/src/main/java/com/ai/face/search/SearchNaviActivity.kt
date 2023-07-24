@@ -12,6 +12,7 @@ import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ai.face.FaceApplication
+import com.ai.face.base.utils.DeviceFingerprint
 import com.ai.face.faceSearch.search.FaceSearchImagesManger
 import com.ai.facesearch.demo.R
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchNaviBinding
@@ -26,7 +27,6 @@ import pub.devrel.easypermissions.EasyPermissions.PermissionCallbacks
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-
 
 /**
  * 演示导航Navi，主要界面App
@@ -51,7 +51,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             )
         }
 
-
         //验证复制图片
         binding.copyFaceImages.setOnClickListener {
             binding.copyFaceImages.isClickable = false
@@ -66,7 +65,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
                 Toast.makeText(baseContext, "已经复制导入验证图片", Toast.LENGTH_SHORT).show()
             }
         }
-
 
         //切换摄像头
         binding.changeCamera.setOnClickListener {
@@ -98,6 +96,10 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
                 )
             )
         }
+
+        binding.deviceInfo.text="设备指纹:"+ DeviceFingerprint.getDeviceFingerprint()
+
+    }
 
         binding.addFaceImage.setOnClickListener {
             startActivity(
@@ -148,7 +150,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
          *
          */
         suspend fun copyManyTestFaceImages(context: Application) = withContext(Dispatchers.IO) {
-
             val assetManager = context.assets
             val subFaceFiles = context.assets.list("")
             if (subFaceFiles != null) {
@@ -163,6 +164,7 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
                 }
             }
         }
+
     }
 
 

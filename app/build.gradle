@@ -59,11 +59,21 @@ android {
     }
 }
 
+
+//依赖有冲突需要统一版本的话可以这样处理
+configurations.all {
+    resolutionStrategy {
+        force 'com.airbnb.android:lottie:6.0.0'
+    }
+}
+
+
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //2023 07 07  重构独立依赖，可以减少体积,定制设备有兼容性问题请联系
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.0.6'
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.0.8'
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

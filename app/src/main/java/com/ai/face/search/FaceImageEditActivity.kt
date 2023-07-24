@@ -80,6 +80,7 @@ class FaceImageEditActivity : AppCompatActivity() {
         faceImageListAdapter.setEmptyView(R.layout.empty_layout)
 
         faceImageListAdapter.emptyLayout?.setOnClickListener { v: View? ->
+            SearchNaviActivity.showAppFloat(baseContext)
             Toast.makeText(baseContext, "复制中...", Toast.LENGTH_LONG).show()
             CoroutineScope(Dispatchers.IO).launch {
                 copyManyTestFaceImages(application)
@@ -174,7 +175,6 @@ class FaceImageEditActivity : AppCompatActivity() {
                 Toast.makeText(baseContext, "处理中...", Toast.LENGTH_LONG).show()
                 //Kotlin 混淆操作后协程操作失效了，因为是异步操作只能等一下
                 CoroutineScope(Dispatchers.IO).launch {
-
                     FaceSearchImagesManger.c.getInstance(application)
                         ?.insertOrUpdateFaceImage(bitmap, CACHE_SEARCH_FACE_DIR+File.separatorChar+name)
                     delay(300)
