@@ -91,48 +91,32 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
 
         binding.editFaceImage.setOnClickListener {
-            startActivity(Intent(baseContext, FaceImageEditActivity::class.java))
+            startActivity(
+                Intent(baseContext, FaceImageEditActivity::class.java).putExtra(
+                    "isAdd",
+                    false
+                )
+            )
         }
 
+        binding.addFaceImage.setOnClickListener {
+            startActivity(
+                Intent(baseContext, FaceImageEditActivity::class.java).putExtra(
+                    "isAdd",
+                    true
+                )
+            )
+        }
 
     }
 
-
     /**
-     * 统一全局的拦截权限请求，给提示
+     * companion object 辅助验证
      *
      */
-    private fun checkNeededPermission() {
-        val perms = arrayOf(Manifest.permission.CAMERA)
-        if (EasyPermissions.hasPermissions(this, *perms)) {
-        } else {
-            EasyPermissions.requestPermissions(this, "请授权相机使用权限！", 11, *perms)
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {}
-
-    /**
-     * 当用户点击了不再提醒的时候的处理方式
-     */
-    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {}
-
-
     companion object {
-
         fun showAppFloat(context: Context) {
-
             if (EasyFloat.getFloatView("speed")?.isShown == true) return
-
             EasyFloat.with(context)
                 .setTag("speed")
                 .setGravity(Gravity.CENTER, 0, 0)
@@ -145,7 +129,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
                 }
                 .show()
         }
-
 
         private fun getBitmapFromAsset(assetManager: AssetManager, strName: String): Bitmap? {
             val istr: InputStream
@@ -181,5 +164,40 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             }
         }
     }
+
+
+
+
+
+
+
+
+    /**
+     * 统一全局的拦截权限请求，给提示
+     *
+     */
+    private fun checkNeededPermission() {
+        val perms = arrayOf(Manifest.permission.CAMERA)
+        if (EasyPermissions.hasPermissions(this, *perms)) {
+        } else {
+            EasyPermissions.requestPermissions(this, "请授权相机使用权限！", 11, *perms)
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: List<String>) {}
+
+    /**
+     * 当用户点击了不再提醒的时候的处理方式
+     */
+    override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {}
 
 }
