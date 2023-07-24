@@ -61,3 +61,5 @@
 
 https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/2abe357d-a7c5-4e58-af09-5b7b2a6226f3
 
+![QRCode_420 (4)](https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/119f33ec-5525-4943-ad35-ef400a408172)
+
