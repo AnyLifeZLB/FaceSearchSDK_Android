@@ -97,9 +97,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             )
         }
 
-        binding.deviceInfo.text="设备指纹:"+ DeviceFingerprint.getDeviceFingerprint()
-
-    }
 
         binding.addFaceImage.setOnClickListener {
             startActivity(
@@ -109,6 +106,9 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
                 )
             )
         }
+
+
+        binding.deviceInfo.text="设备指纹:"+ DeviceFingerprint.getDeviceFingerprint()
 
     }
 
