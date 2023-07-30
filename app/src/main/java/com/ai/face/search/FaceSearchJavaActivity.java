@@ -15,6 +15,7 @@ import com.ai.face.base.view.CameraXFragment;
 import com.ai.face.faceSearch.search.FaceSearchEngine;
 import com.ai.face.faceSearch.search.SearchProcessBuilder;
 import com.ai.face.faceSearch.search.SearchProcessCallBack;
+import com.ai.face.utils.VoicePlayer;
 import com.ai.facesearch.demo.R;
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchBinding;
 import com.bumptech.glide.Glide;
@@ -64,13 +65,17 @@ public class FaceSearchJavaActivity extends AppCompatActivity {
                 .setProcessCallBack(new SearchProcessCallBack() {
                     @Override
                     public void onMostSimilar(String similar) {
+                        //根据你的业务逻辑，各种提示&触发成功后面的操作
+
                         binding.searchTips.setText(similar);
+                        VoicePlayer.getInstance().addPayList(R.raw.success);
                         Glide.with(getBaseContext())
                                 .load(CACHE_SEARCH_FACE_DIR + File.separatorChar + similar)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .transform(new RoundedCorners(11))
                                 .into(binding.image);
+
                     }
 
                     @Override

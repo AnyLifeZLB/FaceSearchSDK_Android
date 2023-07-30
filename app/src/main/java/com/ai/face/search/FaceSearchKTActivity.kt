@@ -11,6 +11,7 @@ import com.ai.face.faceSearch.search.FaceSearchEngine
 import com.ai.face.faceSearch.search.SearchProcessBuilder
 import com.ai.face.faceSearch.search.SearchProcessCallBack
 import com.ai.face.faceSearch.search.SearchProcessTipsCode
+import com.ai.face.utils.VoicePlayer
 import com.ai.facesearch.demo.R
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchBinding
 import com.bumptech.glide.Glide
@@ -54,7 +55,10 @@ class FaceSearchKTActivity : AppCompatActivity() {
             .setFaceLibFolder(FaceApplication.CACHE_SEARCH_FACE_DIR) //内部存储目录中保存N 个图片库的目录
             .setProcessCallBack(object : SearchProcessCallBack() {
                 override fun onMostSimilar(similar: String) {
+                    //根据你的业务逻辑，各种提示&触发成功后面的操作
                     binding.searchTips.text = similar
+                    VoicePlayer.getInstance().addPayList(R.raw.success)
+
                     Glide.with(baseContext)
                         .load(FaceApplication.CACHE_SEARCH_FACE_DIR + File.separatorChar + similar)
                         .skipMemoryCache(true)
@@ -92,7 +96,7 @@ class FaceSearchKTActivity : AppCompatActivity() {
             SearchProcessTipsCode.FACE_DIR_EMPTY -> binding.searchTips.text = "人脸库为空"
             SearchProcessTipsCode.NO_MATCHED -> {
                 //本次摄像头预览帧无匹配而已，会快速取下一帧进行分析检索
-                binding.searchTips.text = "暂无匹配人脸"
+                binding.searchTips.text = "Searching"
             }
 
             SearchProcessTipsCode.SEARCHING -> {
