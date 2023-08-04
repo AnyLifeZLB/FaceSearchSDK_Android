@@ -62,26 +62,28 @@ android {
 
 //依赖有冲突需要统一版本的话可以这样处理
 configurations.all {
-//    resolutionStrategy {
-//        force 'com.airbnb.android:lottie:6.0.0','androidx.camera:camera-camera2:1.2.1',
-//        'androidx.camera:camera-lifecycle:1.2.1','androidx.camera:camera-view:1.2.1'
-//    }
+    resolutionStrategy {
+        force 'com.airbnb.android:lottie:6.0.0'
+    }
 }
+
 
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+
+
     //2023 07 07  重构独立依赖，可以减少体积,定制设备有兼容性问题请联系
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.0.8'
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.0.8.vanxx'
+    
 
 
-//    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.1'
 
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+
+
+
 
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'com.github.bumptech.glide:glide:4.15.1'
@@ -89,6 +91,12 @@ dependencies {
     implementation "io.github.cymchad:BaseRecyclerViewAdapterHelper:3.0.14"
     implementation 'com.airbnb.android:lottie:6.0.0'
     implementation 'com.github.princekin-f:EasyFloat:2.0.4'
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
