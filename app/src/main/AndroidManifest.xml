@@ -33,7 +33,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ai.face.search.FaceSearchJavaActivity"
+            android:name="com.ai.face.search.FaceSearch1NActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name="com.ai.face.search.FaceSearchMNActivity"
             android:exported="false"
             android:launchMode="singleTop" />
     </application>

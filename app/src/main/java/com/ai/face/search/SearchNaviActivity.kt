@@ -45,9 +45,15 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
         checkNeededPermission()
 
-        binding.faceSearch.setOnClickListener {
+        binding.faceSearch1n.setOnClickListener {
             startActivity(
-                Intent(this@SearchNaviActivity, FaceSearchJavaActivity::class.java)
+                Intent(this@SearchNaviActivity, FaceSearch1NActivity::class.java)
+            )
+        }
+
+        binding.faceSearchMn.setOnClickListener {
+            startActivity(
+                Intent(this@SearchNaviActivity, FaceSearchMNActivity::class.java)
             )
         }
 
@@ -108,7 +114,7 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
         }
 
 
-        binding.deviceInfo.text="设备指纹:"+ DeviceFingerprint.getDeviceFingerprint()
+//        binding.deviceInfo.text="设备指纹:"+ DeviceFingerprint.getDeviceFingerprint()
 
     }
 

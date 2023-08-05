@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageProxy
 import com.ai.face.FaceApplication
 import com.ai.face.base.view.CameraXFragment
@@ -53,6 +54,7 @@ class FaceSearchKTActivity : AppCompatActivity() {
             .setThreshold(0.82f)  //阈值设置，范围限 [0.8 , 0.9] 识别可信度，也是识别灵敏度
             .setLicenceKey("yourLicense key") //合作的VIP定制客户群体需要
             .setFaceLibFolder(FaceApplication.CACHE_SEARCH_FACE_DIR) //内部存储目录中保存N 个图片库的目录
+            .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
             .setProcessCallBack(object : SearchProcessCallBack() {
                 override fun onMostSimilar(similar: String) {
                     //根据你的业务逻辑，各种提示&触发成功后面的操作

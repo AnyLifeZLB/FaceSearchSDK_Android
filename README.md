@@ -1,6 +1,6 @@
 ## FaceSearchSDK_Android
-这是独立版本的人脸识别搜索，离线版Android 1:N 人脸识别检索，速度快，精度高。On Device Offline Android Face 1:N Search
-应用户要求，人脸识别1：N 检索独立成库，以便减少体积和快速接入SDK。
+这是独立版本的人脸识别搜索，离线版Android 1:N,M:N 人脸识别检索，速度快，精度高。On Device Offline Android Face 1:N Search
+应用户要求，人脸识别1：N ,M:N检索独立成库，以便减少体积和快速接入SDK。
 主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK
 
 
@@ -17,9 +17,8 @@
 ## 使用场景
 
 【1:N】 智能门锁，考勤机，通缉人员行踪搜索，智慧校园、景区、工地、社区、酒店等，（千张人脸仅仅耗时60 Ms ，三星N9700测试）
-
+【M:N】 公安布控等
  人脸测试验证数据集可用哥伦比亚大学公众人物脸部数据库  链接：http://m6z.cn/5DlIR9
-
 
 ## 接入使用
 
