@@ -1,17 +1,18 @@
 ## FaceSearchSDK_Android
+应用户要求，人脸识别1：N ,M:N检索独立成库，以便减少体积和快速接入SDK,主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK
 这是独立版本的人脸识别搜索，离线版Android 1:N,M:N 人脸识别检索，速度快，精度高。On Device Offline Android Face 1:N Search
-应用户要求，人脸识别1：N ,M:N检索独立成库，以便减少体积和快速接入SDK。
-主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK
 
+建议第一次接入的用户先了解本SDK 的基本功能，服务与政策，下载本Demo 跑一跑流程熟悉基础接入
 
 ## 简要介绍
-目前检索速度千张人脸约60MS，精确度 >99.5% ,人脸检索的速度和硬件配置，人脸质量和识别threshold（阈值）设置有关
+目前检索速度千张人脸约60 毫秒，精确度 >99.5% ,人脸检索的速度和硬件配置，人脸质量和识别threshold（阈值）设置有关
 
 演示的时候点击导航页[增删改人脸] 后进入编辑页面，点击右上角[拍照]启动系统相机自拍一张.也可以点击[App 内置200张Ai人脸头像] 
 模拟N较大的情况，理论上N支持万张以上，更多素材可以自行导入项目Assert目录验证大容量场景
 
-**特殊DIY系统或特殊定制硬件，外接USB摄像头等**如有问题请先提Issues附带系统版本、设备型号、错误log等信息；
+**特殊DIY系统 或 特殊定制硬件（基于RK3288平台等），外接USB摄像头等**如有问题请先提Issues附带系统版本、设备型号、错误log等信息；
 或发邮件到anylife.zlb@gmail.com ，VIP用户添加微信ID：18707611416
+
 
 
 ## 使用场景

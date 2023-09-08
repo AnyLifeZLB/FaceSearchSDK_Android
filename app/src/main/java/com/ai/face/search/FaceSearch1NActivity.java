@@ -7,6 +7,7 @@ import static com.ai.face.faceSearch.search.SearchProcessTipsCode.THRESHOLD_ERRO
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,9 @@ import java.io.File;
 import java.util.List;
 
 /**
- * 应多位用户要求，默认使用java 版本演示怎么快速接入SDK。JAVA FIRST
+ * 应多位用户要求，默认使用java 版本演示怎么快速接入SDK。
+ *
+ * JAVA FIRST,Kotlin 可以一键转化在人工智能优化一下
  *
  */
 public class FaceSearch1NActivity extends AppCompatActivity {
@@ -67,8 +70,9 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个人脸图片库的目录
                 .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
                 .setProcessCallBack(new SearchProcessCallBack() {
+                    //人脸识别检索回调
                     @Override
-                    public void onMostSimilar(String similar) {
+                    public void onMostSimilar(String similar, Bitmap realTimeImg) {
                         //根据你的业务逻辑，各种提示&触发成功后面的操作
                         binding.searchTips.setText(similar);
                         VoicePlayer.getInstance().addPayList(R.raw.success);
@@ -89,7 +93,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                     //人脸检测成功后画白框，此时还没有标签字段
                     //人脸搜索匹配成功后白框变绿框，并标记处Label
                     @Override
-                    public void onFaceDetect(List<RectLabel> rectLabels) {
+                    public void onFaceMatched(List<RectLabel> rectLabels) {
                         binding.graphicOverlay.drawRect(rectLabels, cameraXFragment);
 
                         if(!rectLabels.isEmpty()) {

@@ -1,6 +1,9 @@
 package com.ai.face.search
 
 import android.content.Intent
+import android.content.res.AssetManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +22,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.io.File
+import java.io.IOException
+import java.io.InputStream
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 /**
  * Kotlin 演示
@@ -56,7 +63,7 @@ class FaceSearchKTActivity : AppCompatActivity() {
             .setFaceLibFolder(FaceApplication.CACHE_SEARCH_FACE_DIR) //内部存储目录中保存N 个图片库的目录
             .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
             .setProcessCallBack(object : SearchProcessCallBack() {
-                override fun onMostSimilar(similar: String) {
+                override fun onMostSimilar(similar: String,  realTimeImg: Bitmap) {
                     //根据你的业务逻辑，各种提示&触发成功后面的操作
                     binding.searchTips.text = similar
                     VoicePlayer.getInstance().addPayList(R.raw.success)
@@ -81,6 +88,15 @@ class FaceSearchKTActivity : AppCompatActivity() {
 
         //3.初始化引擎，是个耗时耗资源操作
         FaceSearchEngine.Companion().instance.initSearchParams(faceProcessBuilder)
+
+
+
+        //4.简单的测试图片搜索
+        Timer().schedule(3000){ //需要等一下执行，FaceSearchEngine初始化需要时间
+            FaceSearchEngine.Companion().instance.runSearch(getBitmapFromAsset(assets,"b1.jpeg")!!)
+        }
+
+
     }
 
     /**
@@ -116,4 +132,31 @@ class FaceSearchKTActivity : AppCompatActivity() {
         super.onDestroy()
         FaceSearchEngine.Companion().instance.stopSearchProcess()
     }
+
+
+
+
+
+
+
+
+    /**
+     * 辅助演示
+     *
+     * @param assetManager
+     * @param strName
+     * @return
+     */
+    private fun getBitmapFromAsset(assetManager: AssetManager, strName: String): Bitmap? {
+        val istr: InputStream
+        var bitmap: Bitmap?
+        try {
+            istr = assetManager.open(strName)
+            bitmap = BitmapFactory.decodeStream(istr)
+        } catch (e: IOException) {
+            return null
+        }
+        return bitmap
+    }
+
 }
