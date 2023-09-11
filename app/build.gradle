@@ -73,11 +73,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 
-
     //2023 07 07  重构独立依赖，可以减少体积,定制设备有兼容性问题请联系 !
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.0.9.alpha2'
-    
-
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.0.9'
 
 
 

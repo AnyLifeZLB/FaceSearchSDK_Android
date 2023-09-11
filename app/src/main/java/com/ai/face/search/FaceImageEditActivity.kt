@@ -233,7 +233,7 @@ class FaceImageEditActivity : AppCompatActivity() {
         return true
     }
 
-    var currentPhotoPath: String? = null
+    private var currentPhotoPath: String? = null
 
     @Throws(IOException::class)
     private fun createImageFile(): File {
@@ -280,5 +280,6 @@ class FaceImageEditActivity : AppCompatActivity() {
     companion object {
         const val REQUEST_TAKE_PHOTO = 1
     }
+
 
 }

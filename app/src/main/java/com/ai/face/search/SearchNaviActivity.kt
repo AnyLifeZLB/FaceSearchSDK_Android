@@ -113,7 +113,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             )
         }
 
-
 //        binding.deviceInfo.text="设备指纹:"+ DeviceFingerprint.getDeviceFingerprint()
 
     }
@@ -154,6 +153,8 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
         /**
          * 拷贝人脸数据,CopyFileUtilsOnlyTest 仅仅是辅助调试，后期会去除
          *
+         * 你的业务肯定不会把人脸照片放在这里，只是为了演示
+         *
          */
         suspend fun copyManyTestFaceImages(context: Application) = withContext(Dispatchers.IO) {
             val assetManager = context.assets
@@ -176,12 +177,8 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
 
 
-
-
-
-
     /**
-     * 统一全局的拦截权限请求，给提示
+     * 统一全局的拦截权限请求，给提示。权限处理用自己项目稳定方案就行
      *
      */
     private fun checkNeededPermission() {

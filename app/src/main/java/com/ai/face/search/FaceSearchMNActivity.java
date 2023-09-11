@@ -47,7 +47,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
 
         // 1. Camera 的初始化
         int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 0));
-        CameraXFragment cameraX = CameraXFragment.newInstance(cameraLens, 0.1f);
+        CameraXFragment cameraX = CameraXFragment.newInstance(cameraLens, 0.3f); //参数1，前后摄像头 2是焦距
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_camerax, cameraX)
                 .commit();
 
@@ -71,8 +71,8 @@ public class FaceSearchMNActivity extends AppCompatActivity {
                 .setProcessCallBack(new SearchProcessCallBack() {
 
                     //坐标框和对应的 搜索匹配到的图片标签
-                    //人脸检测成功后画白框，此时还没有标签字段
-                    //人脸搜索匹配成功后白框变绿框，并标记处Label
+                    //人脸检测成功后画白框，此时还没有标签字段Label 字段为空
+                    //人脸搜索匹配成功后白框变绿框，并标记出对应的Label
                     @Override
                     public void onFaceMatched(List<RectLabel> rectLabels) {
                         binding.graphicOverlay.drawRect(rectLabels, cameraX);

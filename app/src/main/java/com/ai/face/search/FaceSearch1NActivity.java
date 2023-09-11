@@ -48,9 +48,10 @@ public class FaceSearch1NActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE);
 
-        // 1. Camera 的初始化。第一个参数0/1 指定前后摄像头； 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
+        // 1. Camera 的初始化。第一个参数0/1 指定前后摄像头；
+        // 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
         int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 0));
-        CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLens,0.11f);
+        CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLens,0.2f);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_camerax, cameraXFragment)
                 .commit();
 
@@ -73,7 +74,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                     //人脸识别检索回调
                     @Override
                     public void onMostSimilar(String similar, Bitmap realTimeImg) {
-                        //根据你的业务逻辑，各种提示&触发成功后面的操作
+                        //根据你的业务逻辑，各种提示 & 触发成功后面的操作
                         binding.searchTips.setText(similar);
                         VoicePlayer.getInstance().addPayList(R.raw.success);
                         Glide.with(getBaseContext())
@@ -90,8 +91,8 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                     }
 
                     //坐标框和对应的 搜索匹配到的图片标签
-                    //人脸检测成功后画白框，此时还没有标签字段
-                    //人脸搜索匹配成功后白框变绿框，并标记处Label
+                    //人脸检测成功后画白框，此时还没有标签字段Label 字段为空
+                    //人脸搜索匹配成功后白框变绿框，并标记出对应的Label
                     @Override
                     public void onFaceMatched(List<RectLabel> rectLabels) {
                         binding.graphicOverlay.drawRect(rectLabels, cameraXFragment);
@@ -132,7 +133,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 break;
 
             case MASK_DETECTION:
-                binding.searchTips.setText("请摘下口罩"); //默认无
+                binding.searchTips.setText("请摘下口罩");
                 break;
 
             case NO_LIVE_FACE:

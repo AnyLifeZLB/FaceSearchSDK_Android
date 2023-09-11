@@ -102,6 +102,4 @@ public class GraphicOverlay extends View {
     }
 
 
-
-
 }
