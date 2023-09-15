@@ -97,9 +97,9 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                     public void onFaceMatched(List<RectLabel> rectLabels) {
                         binding.graphicOverlay.drawRect(rectLabels, cameraXFragment);
 
-                        if(!rectLabels.isEmpty()) {
-                            binding.searchTips.setText("");
-                        }
+//                        if(!rectLabels.isEmpty()) {
+//                            binding.searchTips.setText("");
+//                        }
                     }
 
                     @Override

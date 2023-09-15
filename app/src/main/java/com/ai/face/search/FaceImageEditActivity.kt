@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ai.face.FaceApplication.Companion.CACHE_SEARCH_FACE_DIR
+import com.ai.face.base.baseImage.BaseImageDispose
 import com.ai.face.base.utils.FaceFileProviderUtils
 import com.ai.face.faceSearch.search.FaceSearchImagesManger
 import com.ai.face.faceSearch.utils.BitmapUtils
@@ -151,6 +152,14 @@ class FaceImageEditActivity : AppCompatActivity() {
      * @param bitmap
      */
     private fun showConfirmDialog(bitmap: Bitmap) {
+        var bitmapCrop= BaseImageDispose(baseContext).cropFaceBitmap(bitmap)
+
+        if(bitmapCrop==null){
+            Toast.makeText(this,"没有检测到人脸",Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"没有检测到人脸",Toast.LENGTH_LONG).show()
+            return
+        }
+
         val builder = androidx.appcompat.app.AlertDialog.Builder(this)
         val dialog = builder.create()
         val dialogView = View.inflate(this, R.layout.dialog_confirm_base, null)
@@ -159,7 +168,7 @@ class FaceImageEditActivity : AppCompatActivity() {
         dialog.setView(dialogView)
         dialog.setCanceledOnTouchOutside(false)
         val basePreView = dialogView.findViewById<ImageView>(R.id.preview)
-        basePreView.setImageBitmap(bitmap)
+        basePreView.setImageBitmap(bitmapCrop)
         val btnOK = dialogView.findViewById<Button>(R.id.btn_ok)
         val btnCancel = dialogView.findViewById<Button>(R.id.btn_cancel)
         val editText = dialogView.findViewById<EditText>(R.id.edit_text) //face id
@@ -175,6 +184,7 @@ class FaceImageEditActivity : AppCompatActivity() {
                 Toast.makeText(baseContext, "处理中...", Toast.LENGTH_LONG).show()
                 //Kotlin 混淆操作后协程操作失效了，因为是异步操作只能等一下
                 CoroutineScope(Dispatchers.IO).launch {
+
                     FaceSearchImagesManger.c.getInstance(application)
                         ?.insertOrUpdateFaceImage(bitmap, CACHE_SEARCH_FACE_DIR+File.separatorChar+name)
                     delay(300)
