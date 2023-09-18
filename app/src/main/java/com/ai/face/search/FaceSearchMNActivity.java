@@ -25,6 +25,8 @@ import com.ai.facesearch.demo.R;
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchMnBinding;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * 应多位用户要求，默认使用java 版本演示怎么快速接入SDK
@@ -97,6 +99,20 @@ public class FaceSearchMNActivity extends AppCompatActivity {
 
         //3.初始化r引擎
         FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
+
+
+
+        // 4.简单的单张图片搜索，不用摄像头的形式
+        // 需要注释掉这行代码 FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                //这行代码演示 传入单张图片进行人脸搜索
+//                FaceSearchEngine.Companion.getInstance().runSearch("your bitmap here");
+            }
+        },3000);
+
     }
 
 

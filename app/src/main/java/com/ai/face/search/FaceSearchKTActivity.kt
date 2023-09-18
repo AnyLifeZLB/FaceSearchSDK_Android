@@ -90,7 +90,7 @@ class FaceSearchKTActivity : AppCompatActivity() {
         FaceSearchEngine.Companion().instance.initSearchParams(faceProcessBuilder)
 
 
-        //4.简单的测试图片搜索
+        //4.简单的单张图片搜索，不用摄像头的形式
         Timer().schedule(3000){ //需要等一下执行，FaceSearchEngine初始化需要时间
             FaceSearchEngine.Companion().instance.runSearch(getBitmapFromAsset(assets,"b1.jpeg")!!)
         }
