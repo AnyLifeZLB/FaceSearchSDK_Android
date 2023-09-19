@@ -6,7 +6,7 @@
 
 (含有1:1 人脸识别活体检测完整版本的工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK)
 
-![image](https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/df598b77-52c1-4461-9500-3aa5617bbc5d)
+![WechatIMG630](https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/8d694b2c-9516-44b3-9c0b-a2ad35c6fc38)
 
 
 ## 简要介绍
