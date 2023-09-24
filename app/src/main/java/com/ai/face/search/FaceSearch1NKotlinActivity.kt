@@ -31,7 +31,7 @@ import kotlin.concurrent.schedule
  * Kotlin 演示
  *
  */
-class FaceSearchKTActivity : AppCompatActivity() {
+class FaceSearch1NKotlinActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFaceSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +50,7 @@ class FaceSearchKTActivity : AppCompatActivity() {
         cameraXFragment.setOnAnalyzerListener { imageProxy: ImageProxy ->
             //可以加个红外检测之类的，有人靠近再启动检索服务，不然机器老化快
             if (!isDestroyed && !isFinishing) {
+                //runSearch() 方法第二个参数是指圆形人脸框到屏幕边距，有助于加快裁剪图像
                 FaceSearchEngine.Companion().instance.runSearch(imageProxy, 0)
             }
         }
