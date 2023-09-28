@@ -12,7 +12,8 @@ class FaceApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        CACHE_SEARCH_FACE_DIR = filesDir.path + "/faceSearch"    //1:N 人脸搜索目录
+        //1:N 人脸搜索目录，
+        CACHE_SEARCH_FACE_DIR = filesDir.path + "/faceSearch"
 
         val file= File(CACHE_SEARCH_FACE_DIR) //提前建目录方便导入数据演示
         if (!file.exists()) file.mkdirs()

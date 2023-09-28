@@ -51,16 +51,19 @@ public class FaceSearch1NActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE);
 
         // 1. Camera 的初始化。第一个参数0/1 指定前后摄像头；
-        // 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
         int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 0));
+
+        // 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
         CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLens,0.2f);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_camerax, cameraXFragment)
                 .commit();
 
         cameraXFragment.setOnAnalyzerListener(imageProxy -> {
             //可以加个红外检测之类的，有人靠近再启动检索服务，不然机器老化快
             if (!isDestroyed() && !isFinishing()) {
-                //runSearch() 方法第二个参数是指圆形人脸框到屏幕边距，有助于加快裁剪图像
+                //第二个参数传0表示不裁剪
+                //大于0 表示裁剪距中的正方形区域范围为人脸检测区，参数为正方形区域距离屏幕边缘的值
                 FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
             }
         });
@@ -156,6 +159,8 @@ public class FaceSearch1NActivity extends AppCompatActivity {
 
             case NO_LIVE_FACE:
                 binding.searchTips.setText("未检测到人脸");
+                binding.tips.setText("");
+
                 break;
 
             case EMGINE_INITING:
@@ -166,12 +171,14 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 binding.searchTips.setText("人脸库为空");
                 break;
 
-            case NO_MATCHED: {
+            case NO_MATCHED:
                 //本次摄像头预览帧无匹配而已，会快速取下一帧进行分析检索
-                binding.searchTips.setText("Searching");
+                binding.searchTips.setText("无匹配");
+                binding.tips.setText("暂无匹配，请先录入人脸");
+
 
                 break;
-            }
+
 
         }
     }

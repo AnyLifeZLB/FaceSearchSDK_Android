@@ -57,7 +57,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
         cameraX.setOnAnalyzerListener(imageProxy -> {
             //可以加个红外检测之类的，有人靠近再启动检索服务，不然机器老化快
             if (!isDestroyed() && !isFinishing()) {
-                //MN 检索，第二个参数就不要裁剪了
+                //MN 检索，第二个参数为0 就不要裁剪了
                 FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
             }
         });
@@ -148,7 +148,6 @@ public class FaceSearchMNActivity extends AppCompatActivity {
                 break;
 
             case NO_MATCHED: {
-                //本次摄像头预览帧无匹配而已，会快速取下一帧进行分析检索
                 binding.searchTips.setText("没有匹配项");
                 break;
             }

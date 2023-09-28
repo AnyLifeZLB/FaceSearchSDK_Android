@@ -151,9 +151,12 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
 
         /**
-         * 拷贝人脸数据,CopyFileUtilsOnlyTest 仅仅是辅助调试，后期会去除
+         * 拷贝工程Assets 目录下的人脸图来演示人脸搜索，实际上你的业务人脸可能是在局域网服务器或只能本地录入
          *
-         * 你的业务肯定不会把人脸照片放在这里，只是为了演示
+         * 只有Assets 肯定搜索不到对应的人脸（也许有BUG 也能） 这个时候你要再录入一张你的人脸照片
+         * FaceImageEditActivity 中的拍照按钮可以触发自拍
+         *
+         *
          *
          */
         suspend fun copyManyTestFaceImages(context: Application) = withContext(Dispatchers.IO) {
@@ -161,6 +164,7 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             val subFaceFiles = context.assets.list("")
             if (subFaceFiles != null) {
                 for (index in subFaceFiles.indices) {
+                    //插入照片
                     FaceSearchImagesManger.c.getInstance(context)?.insertOrUpdateFaceImage(
                         getBitmapFromAsset(
                             assetManager,

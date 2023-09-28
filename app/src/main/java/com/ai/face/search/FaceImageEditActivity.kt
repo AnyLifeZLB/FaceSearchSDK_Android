@@ -42,8 +42,7 @@ import java.util.Locale
 import java.util.UUID
 
 /**
- * 增删改 编辑人脸图片
- * 仅仅是测试验证和演示，不是SDK 接入的一部分
+ * 演示如何通过SDK API 增删改 编辑人脸图片
  *
  */
 class FaceImageEditActivity : AppCompatActivity() {
@@ -63,13 +62,21 @@ class FaceImageEditActivity : AppCompatActivity() {
 
         faceImageListAdapter = FaceImageListAdapter(faceImageList)
         mRecyclerView.adapter = faceImageListAdapter
+
+
+        //长按列表的人脸可以进行删除
         faceImageListAdapter.setOnItemLongClickListener { _, _, i ->
             AlertDialog.Builder(this@FaceImageEditActivity)
                 .setTitle("确定要删除" + File(faceImageList[i]).name)
                 .setMessage("删除后对应的人将无法被程序识别")
                 .setPositiveButton("确定") { _: DialogInterface?, _: Int ->
+
                     //删除一张照片
-                    FaceSearchImagesManger.c.getInstance(application)?.deleteFaceImage(faceImageList[i])
+                    FaceSearchImagesManger.c.getInstance(application)
+                        ?.deleteFaceImage(faceImageList[i])
+
+
+                    //更新列表
                     loadImageList()
                     faceImageListAdapter.notifyDataSetChanged()
                 }
@@ -84,7 +91,10 @@ class FaceImageEditActivity : AppCompatActivity() {
             SearchNaviActivity.showAppFloat(baseContext)
             Toast.makeText(baseContext, "复制中...", Toast.LENGTH_LONG).show()
             CoroutineScope(Dispatchers.IO).launch {
+
+                //拷贝工程Assets 目录下的人脸图来演示人脸搜索
                 copyManyTestFaceImages(application)
+
                 delay(800)
                 MainScope().launch {
                     //Kotlin 混淆操作后协程操作失效了，因为是异步操作只能等一下
@@ -94,14 +104,14 @@ class FaceImageEditActivity : AppCompatActivity() {
             }
         }
 
-        if(intent.extras?.getBoolean("isAdd") == true){
+        if (intent.extras?.getBoolean("isAdd") == true) {
             dispatchTakePictureIntent()
         }
 
     }
 
     /**
-     * 加载图片
+     * 加载人脸库中的人脸，长按照片删除某个人脸
      */
     private fun loadImageList() {
         faceImageList.clear()
@@ -152,15 +162,17 @@ class FaceImageEditActivity : AppCompatActivity() {
      * @param bitmap
      */
     private fun showConfirmDialog(bitmap: Bitmap) {
-        var bitmapCrop= BaseImageDispose(baseContext).cropFaceBitmap(bitmap)
+        //裁剪扣出人脸部分保存, 这里 bitmap 大小统一由处理
+        var bitmapCrop = BaseImageDispose(baseContext).cropFaceBitmap(bitmap)
 
-        if(bitmapCrop==null){
-            Toast.makeText(this,"没有检测到人脸",Toast.LENGTH_LONG).show()
-            Toast.makeText(this,"没有检测到人脸",Toast.LENGTH_LONG).show()
+        if (bitmapCrop == null) {
+            //Bitmap 太小品质太差将不可用
+            Toast.makeText(this, "没有检测到人脸或人脸太小", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "没有检测到人脸或人脸太小", Toast.LENGTH_LONG).show()
             return
         }
 
-        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
         val dialog = builder.create()
         val dialogView = View.inflate(this, R.layout.dialog_confirm_base, null)
 
@@ -179,14 +191,17 @@ class FaceImageEditActivity : AppCompatActivity() {
 
         btnOK.setOnClickListener { v: View? ->
             if (!TextUtils.isEmpty(editText.text.toString())) {
-                val name = editText.text.toString()+".jpg"
+                val name = editText.text.toString() + ".jpg"
 
                 Toast.makeText(baseContext, "处理中...", Toast.LENGTH_LONG).show()
                 //Kotlin 混淆操作后协程操作失效了，因为是异步操作只能等一下
                 CoroutineScope(Dispatchers.IO).launch {
 
                     FaceSearchImagesManger.c.getInstance(application)
-                        ?.insertOrUpdateFaceImage(bitmap, CACHE_SEARCH_FACE_DIR+File.separatorChar+name)
+                        ?.insertOrUpdateFaceImage(
+                            bitmap,
+                            CACHE_SEARCH_FACE_DIR + File.separatorChar + name
+                        )
                     delay(300)
                     MainScope().launch {
                         loadImageList()
@@ -194,7 +209,7 @@ class FaceImageEditActivity : AppCompatActivity() {
                     }
                 }
                 dialog.dismiss()
-            }else{
+            } else {
                 Toast.makeText(baseContext, "请确认ID 名字", Toast.LENGTH_LONG).show()
             }
         }
@@ -236,7 +251,6 @@ class FaceImageEditActivity : AppCompatActivity() {
     }
 
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
@@ -261,6 +275,12 @@ class FaceImageEditActivity : AppCompatActivity() {
     }
 
 
+    /**
+     * SDK 由于都是离线工作，这里演示从摄像头录入人脸
+     * 你也可以从你的业务服务器导入人脸
+     * 通过SDK接口导入管理
+     *
+     */
     private fun dispatchTakePictureIntent() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         // Ensure that there's a camera activity to handle the intent

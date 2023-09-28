@@ -13,6 +13,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+<!--    <com.ai.face.base.view.FaceCoverView-->
+<!--        android:id="@+id/faceCoverView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        customAttr:circle_margin="22dp"-->
+<!--        customAttr:tip_text_size="20sp"-->
+<!--        customAttr:show_progress="false"-->
+<!--        customAttr:tip_text_color="@color/colorPrimary"-->
+<!--        customAttr:progress_start_color="@color/yellow"-->
+<!--        customAttr:progress_end_color="@color/red"-->
+<!--        customAttr:tip_text="请人脸正对取景圆框" />-->
+
 
     <com.ai.face.search.GraphicOverlay
         android:id="@+id/graphicOverlay"
@@ -37,12 +49,12 @@
         android:layout_marginTop="7dp"
         android:gravity="center"
         android:paddingLeft="8dp"
-        android:paddingTop="3dp"
+        android:paddingTop="5dp"
         android:paddingRight="8dp"
         android:paddingBottom="3dp"
         android:text="init"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
