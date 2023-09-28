@@ -6,7 +6,8 @@
 
 (含有1:1 人脸识别活体检测完整版本的工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK)
 
-![WechatIMG630](https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/8d694b2c-9516-44b3-9c0b-a2ad35c6fc38)
+
+<img width="1354" alt="image" src="https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/b61d6ab9-b695-4d75-a9cd-42c27ecacc67">
 
 
 ## 简要介绍
@@ -22,9 +23,10 @@
 
 ## 使用场景
 
-【1:N】 智能门锁，考勤机，通缉人员行踪搜索，智慧校园、景区、工地、社区、酒店等，（千张人脸仅仅耗时60 Ms ，三星N9700测试）
-【M:N】 公安布控等
- 人脸测试验证数据集可用哥伦比亚大学公众人物脸部数据库  链接：http://m6z.cn/5DlIR9
+-【1:N】 智能门锁，考勤机，通缉人员行踪搜索，智慧校园、景区、工地、社区、酒店等，（千张人脸仅仅耗时60 Ms ，三星N9700测试）
+-【M:N】 公安布控等
+ 
+ 人脸测试验证数据集可用工程目录Assert验证 或 哥伦比亚大学公众人物脸部数据库  链接：http://m6z.cn/5DlIR9
 
 ## 接入使用
 
