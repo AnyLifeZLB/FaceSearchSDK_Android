@@ -31,7 +31,7 @@
 ## 接入使用
 
     //1.首先Gradle 中引入依赖 
-    implementation 'io.github.anylifezlb:FaceRecognition:1.x.y'
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.2.2_VIP特定版本或者通用的联系好的谢谢'
 
     //2.Camera相机的初始化。第一个参数0/1 指定前后摄像头；第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
     CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLensFacing,0.12f);
