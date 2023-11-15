@@ -73,12 +73,12 @@ dependencies {
 
 
     //减少体积,定制设备有兼容性问题请联系 !
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.2.2' //根据提示升级最新版
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.2.4' //根据提示升级最新版
 
 
 
     implementation 'pub.devrel:easypermissions:3.0.0'
-    implementation 'com.github.bumptech.glide:glide:4.15.1'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
 
     implementation "io.github.cymchad:BaseRecyclerViewAdapterHelper:3.0.14"
     implementation 'com.airbnb.android:lottie:6.0.0'
