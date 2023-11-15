@@ -48,7 +48,6 @@ android {
     android {
         defaultConfig {
             ndk {
-                //如果你的设备都是64 位可以只保留 arm64-v8a
                 abiFilters 'armeabi-v7a','arm64-v8a'
             }
         }
@@ -74,7 +73,7 @@ dependencies {
 
 
     //减少体积,定制设备有兼容性问题请联系 !
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.2.2'
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.2.2' //根据提示升级最新版
 
 
 
