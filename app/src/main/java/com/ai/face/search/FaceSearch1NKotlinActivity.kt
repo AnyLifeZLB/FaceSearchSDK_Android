@@ -117,7 +117,7 @@ class FaceSearch1NKotlinActivity : AppCompatActivity() {
             SearchProcessTipsCode.FACE_DIR_EMPTY -> binding.searchTips.text = "人脸库为空"
             SearchProcessTipsCode.NO_MATCHED -> {
                 //本次摄像头预览帧无匹配而已，会快速取下一帧进行分析检索
-                binding.searchTips.text = "Searching"
+                binding.searchTips.text = "暂无匹配"
             }
 
             SearchProcessTipsCode.SEARCHING -> {
@@ -125,6 +125,7 @@ class FaceSearch1NKotlinActivity : AppCompatActivity() {
             }
 
             else -> binding.searchTips.text = "提示码：$code"
+
         }
     }
 
@@ -133,7 +134,7 @@ class FaceSearch1NKotlinActivity : AppCompatActivity() {
      */
     override fun onDestroy() {
         super.onDestroy()
-        FaceSearchEngine.Companion().instance.stopSearchProcess()
+//        FaceSearchEngine.Companion().instance.stopSearchProcess()
     }
 
 

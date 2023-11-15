@@ -102,7 +102,6 @@ public class FaceSearchMNActivity extends AppCompatActivity {
         FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 
 
-
         // 4.简单的单张图片搜索，不用摄像头的形式
         // 需要注释掉这行代码 FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
 
@@ -152,7 +151,6 @@ public class FaceSearchMNActivity extends AppCompatActivity {
                 break;
             }
 
-
         }
     }
 
@@ -163,7 +161,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FaceSearchEngine.Companion.getInstance().stopSearchProcess();
+//        FaceSearchEngine.Companion.getInstance().stopSearchProcess();
     }
 
 

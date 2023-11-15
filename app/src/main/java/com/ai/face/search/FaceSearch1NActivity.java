@@ -189,7 +189,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        FaceSearchEngine.Companion.getInstance().stopSearchProcess();
+//        FaceSearchEngine.Companion.getInstance().stopSearchProcess();
     }
 
 
