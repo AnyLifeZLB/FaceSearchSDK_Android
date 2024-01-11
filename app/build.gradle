@@ -72,8 +72,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
 
-    //减少体积,定制设备有兼容性问题请联系 !
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.2.4' //根据提示升级最新版
+    //非标准设备有兼容性问题请联系，如自定义硬件板，外接摄像头 !
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.4.0' // 请依赖最新版，SDK 和Demo 不同步更新
 
 
 

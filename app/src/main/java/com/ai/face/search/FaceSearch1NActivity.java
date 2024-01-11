@@ -51,7 +51,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE);
 
         // 1. Camera 的初始化。第一个参数0/1 指定前后摄像头；
-        int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 0));
+        int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 1));
 
         // 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
         CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLens,0.2f);
@@ -72,7 +72,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
         // 2.各种参数的初始化设置
         SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(getApplication())
                 .setLifecycleOwner(this)
-                .setThreshold(0.82f)   //阈值设置，范围限 [0.8 , 0.9] 识别可信度，也是识别灵敏度
+                .setThreshold(0.8f)            //阈值设置，范围限 [0.75 , 0.95] 识别可信度，也是识别灵敏度
                 .setLicenceKey("yourLicense key")  //合作的VIP定制客户群体需要
                 .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个人脸图片库的目录
                 .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
@@ -150,7 +150,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 break;
 
             case THRESHOLD_ERROR :
-                binding.searchTips.setText("识别阈值Threshold范围为0.8-0.9");
+                binding.searchTips.setText("识别阈值Threshold范围为0.75-0.95");
                 break;
 
             case MASK_DETECTION:
@@ -176,12 +176,10 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 binding.searchTips.setText("无匹配");
                 binding.tips.setText("暂无匹配，请先录入人脸");
 
-
                 break;
-
-
         }
     }
+
 
     /**
      * 销毁，停止

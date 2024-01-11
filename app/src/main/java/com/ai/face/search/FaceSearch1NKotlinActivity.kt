@@ -62,7 +62,7 @@ class FaceSearch1NKotlinActivity : AppCompatActivity() {
         // 2.各种参数的初始化设置
         val faceProcessBuilder = SearchProcessBuilder.Builder(application)
             .setLifecycleOwner(this)
-            .setThreshold(0.82f)  //阈值设置，范围限 [0.8 , 0.9] 识别可信度，也是识别灵敏度
+            .setThreshold(0.8f)  //阈值设置，范围限 [0.75 , 0.95] 识别可信度，也是识别灵敏度
             .setLicenceKey("yourLicense key") //合作的VIP定制客户群体需要
             .setFaceLibFolder(FaceApplication.CACHE_SEARCH_FACE_DIR) //内部存储目录中保存N 个图片库的目录
             .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
@@ -110,7 +110,7 @@ class FaceSearch1NKotlinActivity : AppCompatActivity() {
     private fun showPrecessTips(code: Int) {
         binding.image.setImageResource(R.mipmap.ic_launcher)
         when (code) {
-            SearchProcessTipsCode.THRESHOLD_ERROR -> binding.searchTips.text = "识别阈值Threshold范围为0.8-0.9"
+            SearchProcessTipsCode.THRESHOLD_ERROR -> binding.searchTips.text = "识别阈值Threshold范围为0.75-0.95"
             SearchProcessTipsCode.MASK_DETECTION -> binding.searchTips.text = "请摘下口罩" //默认无
             SearchProcessTipsCode.NO_LIVE_FACE -> binding.searchTips.text = "未检测到人脸"
             SearchProcessTipsCode.EMGINE_INITING -> binding.searchTips.text = "初始化中"

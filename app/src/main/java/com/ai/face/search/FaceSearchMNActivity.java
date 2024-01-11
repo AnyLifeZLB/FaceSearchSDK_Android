@@ -66,7 +66,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
         // 2.各种参数的初始化设置 （M：N 建议阈值放低）
         SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(this)
                 .setLifecycleOwner(this)
-                .setThreshold(0.8f)            //识别成功阈值设置，范围仅限 0.8-0.9！默认0.8
+                .setThreshold(0.8f)            //识别成功阈值设置，范围仅限 0.75 , 0.95 ！默认0.8
                 .setLicenceKey("yourLicense")   //申请的License
                 .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
                 .setSearchType(SearchProcessBuilder.SearchType.N_SEARCH_M) //1:N 搜索
@@ -127,7 +127,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
         switch (code) {
 
             case THRESHOLD_ERROR:
-                binding.searchTips.setText("识别阈值Threshold范围为0.8-0.95");
+                binding.searchTips.setText("识别阈值Threshold范围为0.75-0.95");
                 break;
 
             case MASK_DETECTION:
@@ -151,6 +151,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
                 break;
             }
 
+
         }
     }
 
@@ -161,7 +162,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        FaceSearchEngine.Companion.getInstance().stopSearchProcess();
+        FaceSearchEngine.Companion.getInstance().stopSearchProcess();
     }
 
 

@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!--   你可以自定义你的UI，Camera 管理封装在SDK，但是UI 样式的修改是开发的 -->
+
 <!--    <com.ai.face.base.view.FaceCoverView-->
 <!--        android:id="@+id/faceCoverView"-->
 <!--        android:layout_width="match_parent"-->
