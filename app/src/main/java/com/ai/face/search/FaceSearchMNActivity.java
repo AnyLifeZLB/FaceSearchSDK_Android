@@ -7,15 +7,12 @@ import static com.ai.face.faceSearch.search.SearchProcessTipsCode.MASK_DETECTION
 import static com.ai.face.faceSearch.search.SearchProcessTipsCode.NO_LIVE_FACE;
 import static com.ai.face.faceSearch.search.SearchProcessTipsCode.NO_MATCHED;
 import static com.ai.face.faceSearch.search.SearchProcessTipsCode.THRESHOLD_ERROR;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
-
 import com.ai.face.base.view.CameraXFragment;
 import com.ai.face.faceSearch.search.FaceSearchEngine;
 import com.ai.face.faceSearch.search.SearchProcessBuilder;
@@ -23,7 +20,6 @@ import com.ai.face.faceSearch.search.SearchProcessCallBack;
 import com.ai.face.faceSearch.utils.RectLabel;
 import com.ai.facesearch.demo.R;
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchMnBinding;
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -116,6 +112,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
     }
 
 
+
     /**
      * 显示提示
      *
@@ -150,10 +147,9 @@ public class FaceSearchMNActivity extends AppCompatActivity {
                 binding.searchTips.setText("没有匹配项");
                 break;
             }
-
-
         }
     }
+
 
 
     /**
