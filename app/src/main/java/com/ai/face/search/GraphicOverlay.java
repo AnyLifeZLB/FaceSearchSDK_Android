@@ -27,7 +27,7 @@ public class GraphicOverlay extends View {
     private float scaleX = 1.0f;
     private float scaleY = 1.0f;
     private final Paint textPaint = new Paint();
-    private List<RectLabel> rectFList = new ArrayList<>();   //List<RectF>
+    private List<RectLabel> rectFList = new ArrayList<>();
 
     public GraphicOverlay(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -53,7 +53,6 @@ public class GraphicOverlay extends View {
             rectPaint.setColor(Color.WHITE);
 
             if (!TextUtils.isEmpty(rectLabel.getLabel())) {
-                textPaint.setColor(Color.GREEN);
                 rectPaint.setColor(Color.GREEN);
                 textPaint.setTextSize(44.0f);
                 textPaint.setTypeface(Typeface.DEFAULT);
@@ -87,7 +86,7 @@ public class GraphicOverlay extends View {
         List<RectLabel> labels = new ArrayList<>();
         int padding = 10;
 
-        //调整一点
+        //调整一点，有点偏差的处理。Rect 框问题。
         for (RectLabel rectLabel : rectLabels) {
             Rect rect = new Rect(
                     translateX(rectLabel.getRect().left)  ,
@@ -98,8 +97,8 @@ public class GraphicOverlay extends View {
 
             labels.add(new RectLabel(rect, rectLabel.getLabel()));
         }
+
         return labels;
     }
-
 
 }

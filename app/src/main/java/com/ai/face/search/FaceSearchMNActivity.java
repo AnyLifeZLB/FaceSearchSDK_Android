@@ -62,8 +62,9 @@ public class FaceSearchMNActivity extends AppCompatActivity {
         // 2.各种参数的初始化设置 （M：N 建议阈值放低）
         SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(this)
                 .setLifecycleOwner(this)
-                .setThreshold(0.8f)            //识别成功阈值设置，范围仅限 0.75 , 0.95 ！默认0.8
+                .setThreshold(0.79f)            //识别成功阈值设置，范围仅限 0.75 , 0.95 ！默认0.8
                 .setLicenceKey("yourLicense")   //申请的License
+                //增删改人脸 参考@FaceImageEditActivity 中的方式，需要使用SDK 中的API 进行操作不能直接插入图片
                 .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
                 .setSearchType(SearchProcessBuilder.SearchType.N_SEARCH_M) //1:N 搜索
                 .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
@@ -71,7 +72,7 @@ public class FaceSearchMNActivity extends AppCompatActivity {
 
                     //坐标框和对应的 搜索匹配到的图片标签
                     //人脸检测成功后画白框，此时还没有标签字段Label 字段为空
-                    //人脸搜索匹配成功后白框变绿框，并标记出对应的Label
+                    //人脸搜索匹配成功后白框变绿框，并标记出对应的Label（就是人脸ID名称）
                     @Override
                     public void onFaceMatched(List<RectLabel> rectLabels) {
                         binding.graphicOverlay.drawRect(rectLabels, cameraX);
@@ -100,7 +101,6 @@ public class FaceSearchMNActivity extends AppCompatActivity {
 
         // 4.简单的单张图片搜索，不用摄像头的形式
         // 需要注释掉这行代码 FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
-
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
