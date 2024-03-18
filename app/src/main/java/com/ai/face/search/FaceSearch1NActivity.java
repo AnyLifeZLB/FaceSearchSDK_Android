@@ -168,6 +168,8 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 break;
 
             case FACE_DIR_EMPTY:
+
+                //增删改人脸 参考@FaceImageEditActivity 中的方式，需要使用SDK 中的API 进行操作不能直接插入图片
                 binding.searchTips.setText("人脸库为空");
                 break;
 
