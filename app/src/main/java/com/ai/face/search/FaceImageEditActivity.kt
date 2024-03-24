@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -56,13 +57,33 @@ class FaceImageEditActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
         val mRecyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val gridLayoutManager: LinearLayoutManager = GridLayoutManager(this, 2)
+        val gridLayoutManager: LinearLayoutManager = GridLayoutManager(this, 3)
         mRecyclerView.layoutManager = gridLayoutManager
         loadImageList()
 
         faceImageListAdapter = FaceImageListAdapter(faceImageList)
         mRecyclerView.adapter = faceImageListAdapter
 
+        findViewById<TextView>(R.id.insertOne).setOnClickListener {
+            dispatchTakePictureIntent()
+        }
+
+        findViewById<TextView>(R.id.insertMany).setOnClickListener {
+            SearchNaviActivity.showAppFloat(baseContext)
+            Toast.makeText(baseContext, "复制中...", Toast.LENGTH_LONG).show()
+            CoroutineScope(Dispatchers.IO).launch {
+
+                //拷贝工程Assets 目录下的人脸图来演示人脸搜索
+                copyManyTestFaceImages(application)
+
+                delay(800)
+                MainScope().launch {
+                    //Kotlin 混淆操作后协程操作失效了，因为是异步操作只能等一下
+                    loadImageList()
+                    faceImageListAdapter.notifyDataSetChanged()
+                }
+            }
+        }
 
         //长按列表的人脸可以进行删除
         faceImageListAdapter.setOnItemLongClickListener { _, _, i ->
@@ -167,7 +188,6 @@ class FaceImageEditActivity : AppCompatActivity() {
 
         if (bitmapCrop == null) {
             //Bitmap 太小品质太差将不可用
-            Toast.makeText(this, "没有检测到人脸或人脸太小", Toast.LENGTH_LONG).show()
             Toast.makeText(this, "没有检测到人脸或人脸太小", Toast.LENGTH_LONG).show()
             return
         }

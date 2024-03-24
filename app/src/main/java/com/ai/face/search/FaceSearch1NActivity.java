@@ -86,7 +86,6 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                         VoicePlayer.getInstance().addPayList(R.raw.success);
                         Glide.with(getBaseContext())
                                 .load(CACHE_SEARCH_FACE_DIR + File.separatorChar + similar)
-                                .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .transform(new RoundedCorners(11))
                                 .into(binding.image);

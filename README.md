@@ -30,7 +30,7 @@
 ## 接入使用
 
     //1.首先Gradle 中引入依赖 
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.2.2_VIP特定版本或者通用的联系好的谢谢'
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.6.0_VIP特定版本或者通用的联系好的谢谢'
 
     //2.相机的初始化。第一个参数0/1 指定前后摄像头； 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
     CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLensFacing,0.12f);
@@ -52,6 +52,24 @@
     * NaviActivity   Demo 演示导航页面
     * /search/目录   1:N/M:N 人脸识别搜索页面，人脸库管理
     * Assets  目录   测试/验证/演示 的人脸图片
+
+### 自定义相机，双目相机初始化
+
+1. gradle 引入 implementation 'io.github.anylifezlb:FaceSearchSDK:2.x.x'
+2. 调整项目compileSdk 33 和Kotlin 支持 （人脸管理后期会全部用Java 重构）
+3. 支持自己管理摄像头仅仅使用SDK API 进行搜索
+   //1.在摄像头回调预览中循环调用runSearch()方法
+   //自行保证Bitmap 的方向角度正确无旋转，清晰度。runSearch必须在子线程运行
+   FaceSearchEngine.Companion.getInstance().runSearch(realTimeFaceBmp);
+4. 各种搜索参数的初始化
+   // 2.各种参数的初始化设置
+   SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(getApplication())
+5. 初始化引擎开始搜索
+   //3.初始化引擎
+   FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
+6. 所有的人脸都必须通过SDK 的API 插入到人脸管理目录，而不是File 文件放入到目录就行，SDK API 还会提取人脸特征操作
+7. Demo 中有Assert 有250 张测试人脸；你可以在人脸管理页面中右上角通过自拍添加一张个人清晰人脸照进行测试验证
+8. 了解Demo 后还有问题需要定制解决请联系微信 18707611416 或邮件anylife.zlb@gmail.com
 
 
 ## Demo 下载体验

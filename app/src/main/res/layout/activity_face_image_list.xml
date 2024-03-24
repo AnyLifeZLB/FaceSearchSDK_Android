@@ -20,16 +20,52 @@
         app:title="人脸编辑"
         tools:ignore="MissingConstraints" />
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="长按删除人脸，点击右上角编辑人脸"
-        android:gravity="center"
-        android:padding="5dp"
-        android:textSize="14sp"
-        android:background="#CDB48D"
-        android:textColor="@color/white"
-        />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/insertOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="录入单张人脸"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:background="#CDB48D"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/insertMany"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一键导入Assert目录人脸"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:background="#CDB48D"
+            android:textColor="@color/white"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="长按删除人脸，点击右上角编辑人脸"
+            android:layout_marginTop="10dp"
+
+            android:gravity="center"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:background="#CDB48D"
+            android:textColor="@color/white"
+            />
+
+
+    </LinearLayout>
 
 
     <androidx.recyclerview.widget.RecyclerView
