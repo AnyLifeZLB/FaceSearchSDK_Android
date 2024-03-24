@@ -32,7 +32,7 @@ import java.util.TimerTask;
 /**
  * 应多位用户要求，默认使用java 版本演示怎么快速接入SDK。
  *
- * JAVA FIRST,Kotlin 可以一键转化在人工智能优化一下
+ * JAVA FIRST,Kotlin 可以一键转化
  *
  */
 public class FaceSearch1NActivity extends AppCompatActivity {
@@ -74,6 +74,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 .setLifecycleOwner(this)
                 .setThreshold(0.79f)            //阈值设置，范围限 [0.75 , 0.95] 识别可信度，也是识别灵敏度
                 .setLicenceKey("yourLicense key")  //合作的VIP定制客户群体需要
+                //增删改人脸 参考@FaceImageEditActivity 中的方式，需要使用SDK 中的API 进行操作不能直接插入图片
                 .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个人脸图片库的目录
                 .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
                 .setProcessCallBack(new SearchProcessCallBack() {
@@ -119,8 +120,6 @@ public class FaceSearch1NActivity extends AppCompatActivity {
 
         //3.初始化引擎
         FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
-
-
 
 
         // 4.简单的单张图片搜索，不用摄像头的形式
@@ -169,6 +168,8 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 break;
 
             case FACE_DIR_EMPTY:
+
+                //增删改人脸 参考@FaceImageEditActivity 中的方式，需要使用SDK 中的API 进行操作不能直接插入图片
                 binding.searchTips.setText("人脸库为空");
                 break;
 
