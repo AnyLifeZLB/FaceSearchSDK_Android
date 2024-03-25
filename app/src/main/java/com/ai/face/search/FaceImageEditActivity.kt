@@ -93,7 +93,7 @@ class FaceImageEditActivity : AppCompatActivity() {
                 .setPositiveButton("确定") { _: DialogInterface?, _: Int ->
 
                     //删除一张照片
-                    FaceSearchImagesManger.c.getInstance(application)
+                    FaceSearchImagesManger.ILil.getInstance(application)
                         ?.deleteFaceImage(faceImageList[i])
 
 
@@ -217,7 +217,7 @@ class FaceImageEditActivity : AppCompatActivity() {
                 //Kotlin 混淆操作后协程操作失效了，因为是异步操作只能等一下
                 CoroutineScope(Dispatchers.IO).launch {
 
-                    FaceSearchImagesManger.c.getInstance(application)
+                    FaceSearchImagesManger.ILil.getInstance(application)
                         ?.insertOrUpdateFaceImage(
                             bitmap,
                             CACHE_SEARCH_FACE_DIR + File.separatorChar + name
@@ -247,7 +247,7 @@ class FaceImageEditActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            val bitmap = BitmapUtils.a.getFixedBitmap(currentPhotoPath!!, contentResolver)
+            val bitmap = BitmapUtils.Object.getFixedBitmap(currentPhotoPath!!, contentResolver)
             //加一个确定ID的操作
             showConfirmDialog(bitmap)
         }

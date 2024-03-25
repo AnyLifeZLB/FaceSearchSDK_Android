@@ -7,7 +7,6 @@ plugins {
 }
 
 
-
 ////如果和你的项目中Kotlin 依赖不一致。 强制统一项目中的Kotlin 版本依赖
 //ConfigurationContainer container = project.configurations
 //container.all { Configuration conf ->

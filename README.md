@@ -27,16 +27,17 @@
  
  人脸测试验证数据集可用工程目录Assert 验证 或 哥伦比亚大学公众人物脸部数据库  链接：http://m6z.cn/5DlIR9
 
-## 接入使用
+## 人脸搜索接入使用
 
-    //1.首先Gradle 中引入依赖 
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.6.0_VIP特定版本或者通用的联系好的谢谢'
+    //1.首先Gradle 中引入依赖 , 请升级到1.6.0以上。老版本不再维护
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.0'
 
     //2.相机的初始化。第一个参数0/1 指定前后摄像头； 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
+    //这步骤非必须，自定义摄像头管理，双目摄像头参考 ### 自定义相机，双目相机初始化大概步骤
     CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLensFacing,0.12f);
 
     ``` 
-    //3.人脸识别过程中各种参数的初始化。（更多说明请Github Clone代码体验,）
+    //3.人脸搜索过程中各种参数的初始化。（更多说明请Github Clone代码体验,）
     
         FaceProcessBuilder faceProcessBuilder = new FaceProcessBuilder.Builder(this)
                 .setThreshold(0.8f)                 //threshold（阈值）设置，范围仅限 [0.8-0.9]，默认0.8
@@ -45,7 +46,15 @@
                 .create();
 
         faceDetectorUtils.setDetectorParams(faceProcessBuilder);
+
+
+    //4.子线程调用引擎执行人脸搜索
+    //runSearch(）参数有Bitmap 或 imageProxy
+    FaceSearchEngine.Companion.getInstance().runSearch(）
+
     ```
+
+    
    
     更多使用说明下载参考本Repo和下载Demo体验，里面有比较详尽的使用方法，其中
   
@@ -53,7 +62,7 @@
     * /search/目录   1:N/M:N 人脸识别搜索页面，人脸库管理
     * Assets  目录   测试/验证/演示 的人脸图片
 
-### 自定义相机，双目相机初始化
+### 自定义相机，双目相机初始化大概步骤
 
 1. gradle 引入 implementation 'io.github.anylifezlb:FaceSearchSDK:2.x.x'
 2. 调整项目compileSdk 33 和Kotlin 支持 （人脸管理后期会全部用Java 重构）

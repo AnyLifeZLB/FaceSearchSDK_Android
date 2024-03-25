@@ -165,7 +165,7 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             if (subFaceFiles != null) {
                 for (index in subFaceFiles.indices) {
                     //插入照片
-                    FaceSearchImagesManger.c.getInstance(context)?.insertOrUpdateFaceImage(
+                    FaceSearchImagesManger.ILil.getInstance(context)?.insertOrUpdateFaceImage(
                         getBitmapFromAsset(
                             assetManager,
                             subFaceFiles[index]
