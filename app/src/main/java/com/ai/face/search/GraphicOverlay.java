@@ -51,19 +51,17 @@ public class GraphicOverlay extends View {
 
         for (RectLabel rectLabel : rectFList) {
             rectPaint.setColor(Color.WHITE);
-
             if (!TextUtils.isEmpty(rectLabel.getLabel())) {
                 rectPaint.setColor(Color.GREEN);
                 textPaint.setTextSize(44.0f);
                 textPaint.setTypeface(Typeface.DEFAULT);
+                textPaint.setColor(Color.RED);
                 canvas.drawText(rectLabel.getLabel(), rectLabel.getRect().left + 22.0f, rectLabel.getRect().top + 55.0f, textPaint);
             }
-
             rectPaint.setStrokeWidth(3.0f);
             rectPaint.setStyle(Paint.Style.STROKE);
             canvas.drawRect(rectLabel.getRect(), rectPaint);
         }
-
     }
 
     public void drawRect(List<RectLabel> rectLabels, CameraXFragment cameraXFragment) {

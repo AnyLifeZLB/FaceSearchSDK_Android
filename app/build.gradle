@@ -10,7 +10,7 @@ android {
         minSdk 21
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "1.8.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -73,7 +73,7 @@ dependencies {
 
 
     //非标准设备有兼容性问题请联系，如自定义硬件板，外接摄像头 !
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.1' // 请依赖1.6 以上版本，老版本不再维护
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.3' // 请依赖1.6 以上版本，老版本不再维护
 
 
 
