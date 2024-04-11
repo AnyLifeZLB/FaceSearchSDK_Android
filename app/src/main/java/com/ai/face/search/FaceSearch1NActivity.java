@@ -72,7 +72,10 @@ public class FaceSearch1NActivity extends AppCompatActivity {
         // 2.各种参数的初始化设置
         SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(getApplication())
                 .setLifecycleOwner(this)
-                .setThreshold(0.79f)            //阈值设置，范围限 [0.75 , 0.95] 识别可信度，也是识别灵敏度
+                .setThreshold(0.81f)            //阈值设置，范围限 [0.8 , 0.95] 识别可信度，也是识别灵敏度
+                .setNeedMultiValidate(true)          //是否需要筛选结果防止误识别，需要硬件CPU配置高，可以先尝试看看
+                .setNeedNirLiveness(false)           //是否需要红外活体能力，只有1:N VIP 有
+                .setNeedRGBLiveness(false)            //是否需要普通RGB活体检测能力，只有1:N VIP 有
                 .setLicenceKey("yourLicense key")  //合作的VIP定制客户群体需要
                 //增删改人脸 参考@FaceImageEditActivity 中的方式，需要使用SDK 中的API 进行操作不能直接插入图片
                 .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个人脸图片库的目录
@@ -103,7 +106,6 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                     @Override
                     public void onFaceMatched(List<RectLabel> rectLabels) {
 //                        binding.graphicOverlay.drawRect(rectLabels, cameraXFragment);
-
 //                        if(!rectLabels.isEmpty()) {
 //                            binding.searchTips.setText("");
 //                        }
@@ -149,7 +151,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 break;
 
             case THRESHOLD_ERROR :
-                binding.searchTips.setText("识别阈值Threshold范围为0.75-0.95");
+                binding.searchTips.setText("识别阈值Threshold范围为0.8-0.95");
                 break;
 
             case MASK_DETECTION:
@@ -159,7 +161,6 @@ public class FaceSearch1NActivity extends AppCompatActivity {
             case NO_LIVE_FACE:
                 binding.searchTips.setText("未检测到人脸");
                 binding.tips.setText("");
-
                 break;
 
             case EMGINE_INITING:
@@ -167,15 +168,13 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 break;
 
             case FACE_DIR_EMPTY:
-
                 //增删改人脸 参考@FaceImageEditActivity 中的方式，需要使用SDK 中的API 进行操作不能直接插入图片
                 binding.searchTips.setText("人脸库为空");
                 break;
 
             case NO_MATCHED:
                 //本次摄像头预览帧无匹配而已，会快速取下一帧进行分析检索
-                binding.searchTips.setText("无匹配");
-                binding.tips.setText("暂无匹配，请先录入人脸");
+                binding.searchTips.setText("无匹配，请正对摄像头");
 
                 break;
         }

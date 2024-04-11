@@ -63,8 +63,6 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             Toast.makeText(baseContext, "复制处理中...", Toast.LENGTH_LONG).show()
             showAppFloat(baseContext)
 
-            Toast.makeText(baseContext, "复制处理中...", Toast.LENGTH_LONG).show()
-
             CoroutineScope(Dispatchers.Main).launch {
                 copyManyTestFaceImages(application)
                 EasyFloat.hide("speed")
