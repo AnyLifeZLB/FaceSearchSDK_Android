@@ -6,6 +6,10 @@ plugins {
     id("com.google.devtools.ksp") version "1.8.10-1.0.9" apply false
 }
 
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
 
 ////如果和你的项目中Kotlin 依赖不一致。 强制统一项目中的Kotlin 版本依赖
 //ConfigurationContainer container = project.configurations
@@ -21,6 +25,3 @@ plugins {
 //}
 
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}

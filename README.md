@@ -26,7 +26,7 @@
 
 **1.首先Gradle 中引入依赖**
 
-implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.8.beta4' //请依赖最新稳定版本
+implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.8.1' //请依赖最新稳定版本
 
 **2.检查依赖冲突等**
 
@@ -89,24 +89,23 @@ FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 //搜索的各种状态和结果回调，更多参考Demo
 
 ```
-.setProcessCallBack(new SearchProcessCallBack() {
+ .setProcessCallBack(new SearchProcessCallBack() {
 
-   @Override
-   public void onMostSimilar(String similar, Bitmap bitmap) {
-       binding.resultId.setText(similar);
-       Glide.with(requireContext())
-            .load(CACHE_SEARCH_FACE_DIR + File.separatorChar + similar)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .transform(new RoundedCorners(12)) // 数字根据自己需求来改
-            .into(binding.resultImg);
-   }
+     @Override
+     public void onMostSimilar(String similar, Bitmap bitmap) {
+         binding.resultId.setText(similar);
+         Glide.with(requireContext())
+              .load(CACHE_SEARCH_FACE_DIR + File.separatorChar + similar)
+              .diskCacheStrategy(DiskCacheStrategy.NONE)
+              .transform(new RoundedCorners(12)) // 数字根据自己需求来改
+              .into(binding.resultImg);
+     }
 
-
-
-   @Override
-   public void onProcessTips(int i) {
-      showPrecessTips(i);
-   }
+     @Override
+     public void onProcessTips(int i) {
+          showPrecessTips(i);
+     }
+ }
 
 ```
 

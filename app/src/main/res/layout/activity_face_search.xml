@@ -70,7 +70,7 @@
         android:layout_marginBottom="15dp"
         android:gravity="center"
         android:text="It is a tips"
-        android:textColor="@color/white"
+        android:textColor="@color/red"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_camerax" />
 
