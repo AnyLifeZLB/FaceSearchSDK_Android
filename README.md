@@ -40,9 +40,11 @@
     //3.人脸搜索过程中各种参数的初始化。（更多说明请Github Clone代码体验,）
     
         FaceProcessBuilder faceProcessBuilder = new FaceProcessBuilder.Builder(this)
-                .setThreshold(0.8f)                 //threshold（阈值）设置，范围仅限 [0.8-0.9]，默认0.8
-                .setLicenceKey("yourLicense key")   //申请的License
-                .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个图片库的目录
+                .setNeedMultiValidate(false)      //是否需要筛选结果防止误识别，需要硬件CPU配置高，Android 8+
+                .setThreshold(0.85f)              //阈值设置，范围限 [0.8 , 0.95] 识别可信度，也是识别灵敏度
+                .setNeedNirLiveness(false)        //是否需要红外活体能力，只有1:N VIP 有
+                .setNeedRGBLiveness(false)        //是否需要普通RGB活体检测能力，只有1:N VIP 有
+                .setLicenceKey("yourLicense")     //合作的VIP定制客户群体需要
                 .create();
 
         faceDetectorUtils.setDetectorParams(faceProcessBuilder);
