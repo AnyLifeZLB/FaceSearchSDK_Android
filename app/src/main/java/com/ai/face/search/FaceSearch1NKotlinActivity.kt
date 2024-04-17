@@ -67,7 +67,7 @@ class FaceSearch1NKotlinActivity : AppCompatActivity() {
             .setFaceLibFolder(FaceApplication.CACHE_SEARCH_FACE_DIR) //内部存储目录中保存N 个图片库的目录
             .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
             .setProcessCallBack(object : SearchProcessCallBack() {
-                override fun onMostSimilar(similar: String,  realTimeImg: Bitmap) {
+                override fun onMostSimilar(similar: String, value:Float, realTimeImg: Bitmap) {
                     //根据你的业务逻辑，各种提示&触发成功后面的操作
                     binding.searchTips.text = similar
                     VoicePlayer.getInstance().addPayList(R.raw.success)

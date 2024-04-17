@@ -75,14 +75,14 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             val sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE)
 
             if (sharedPref.getInt("cameraFlag", 0) == 1) {
-                sharedPref.edit().putInt("cameraFlag", 0).apply()
+                sharedPref.edit().putInt("cameraFlag", 0).commit()
                 Toast.makeText(
                     baseContext,
                     "已切换前置摄像头",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                sharedPref.edit().putInt("cameraFlag", 1).apply()
+                sharedPref.edit().putInt("cameraFlag", 1).commit()
                 Toast.makeText(
                     baseContext,
                     "已切换后置/外接摄像头",

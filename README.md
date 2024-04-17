@@ -26,7 +26,7 @@
 
 **1.首先Gradle 中引入依赖**
 
-implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.8.1' //请依赖最新稳定版本
+implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.8.5' //请依赖最新稳定版本
 
 **2.检查依赖冲突等**
 
