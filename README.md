@@ -1,21 +1,24 @@
 ## FaceSearchSDK\_Android
 
 应用户要求，人脸识别1：N ,M:N检索独立成库，以便减少体积和快速接入SDK, 这是独立版本的人脸识别搜索，
-离线版Android 1:N,M:N 人脸识别检索，速度快，精度高。On\_device Offline Android Face 1:N，M:N Search
+离线版Android 1:N,M:N 人脸识别检索，速度快精度高，不用联网就能工作，离线授权激活后不限使用时长和设备量。
+On\_device Offline Android Face 1:N，M:N Search
 (含有1:1 人脸识别活体检测完整版本的工程地址：<https://github.com/AnyLifeZLB/FaceVerificationSDK>)
 
-**建议第一次接入的用户先下载DemoAPK安装了解本SDK 的基本功能，服务与政策，下载本Demo 跑一跑流程熟悉基础接入.**
+**首次接入SDK建议先下载DemoAPK安装了解本SDK 的基本功能，服务与政策，下载本Demo 跑一跑流程熟悉基础接入.**
+
+SDK支持Android 5+，建议设备配置 CPU为八核64位2.4GHz以上  摄像头RGB 宽动态镜头分辨率1080p以上，帧率大于30，无拖影。
 
 <img width="1354" alt="image" src="https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/b61d6ab9-b695-4d75-a9cd-42c27ecacc67">
 
 ## 简要介绍
 
-简单使用场景
+简单使用场景(接入正式项目请先充分熟悉SDK接入Demo，验证可行性！！)
 
 *   【1:N】 小区门禁，智能门锁，考勤机，智慧校园、工地、社区、酒店等
 *   【M:N】 公安布控，特定群体追踪等
 
-目前人脸检索速度约50MS(三星N9700千张人脸验证)，人脸检索的速度和硬件配置，人脸质量和识别threshold（阈值）设置有关
+目前人脸检索速度约50MS(三星N9700千张人脸验证)，人脸检索的速度和硬件配置，人脸质量和识别threshold（阈值）设置有关.
 运行本Demo体验的时候点击导航页\[增删改人脸] 后进入编辑页面，点击右上角\[拍照]启动系统相机自拍一张.也可以点击\[App 内置200张Ai人脸头像]
 模拟N较大的情况，理论上N支持万张以上，需要验证更多人脸素材场景可以自行将人脸导入项目Assert目录验证大容量场景
 
@@ -26,7 +29,7 @@
 
 **1.首先Gradle 中引入依赖**
 
-implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.8.5' //请依赖最新稳定版本
+implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.9' //请依赖最新稳定版本
 
 **2.检查依赖冲突等**
 
@@ -49,6 +52,7 @@ configurations.all {
 cameraXFragment = CameraXFragment.newInstance(cameraLensFacing,0.12f);
 
 然后在相机分析回调中调用FaceSearchEngine 搜索引擎进行工作
+
 ```
 cameraX.setOnAnalyzerListener(imageProxy -> {
       FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
@@ -90,7 +94,6 @@ FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 
 ```
  .setProcessCallBack(new SearchProcessCallBack() {
-
      @Override
      public void onMostSimilar(String similar, Bitmap bitmap) {
          binding.resultId.setText(similar);
@@ -114,7 +117,11 @@ FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 ### 注意事项
 
 1.  所有的人脸都必须通过SDK 的API 插入到人脸管理目录，而不是File 文件放入到目录就行，SDK API 还会提取人脸特征操作
-2.  Demo 中有Assert 有250 张测试人脸；你可以在人脸管理页面中右上角通过自拍添加一张个人清晰人脸照进行测试验证
+2.  录入的人脸底片请使用正脸无遮挡的清晰照片，平时戴眼睛的依然使用戴眼镜的人脸照片
+3.  setNeedMultiValidate 和 setThreshold 根据你项目需要精确度和反应速度合理设置参数
+4.  Demo 中有Assert 有250 张测试人脸；你可以在人脸管理页面中右上角通过自拍添加一张个人清晰人脸照进行测试验证
+5.  请勿不经验证直接用于生产环境，特别是有严格匹配的场景
+
 
 ## Demo 下载体验
 

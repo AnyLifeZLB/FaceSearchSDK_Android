@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
@@ -52,7 +53,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getSharedPreferences("faceVerify", Context.MODE_PRIVATE);
 
         // 1. Camera 的初始化。第一个参数0/1 指定前后摄像头；
-        int cameraLens = sharedPref.getInt("cameraFlag", sharedPref.getInt("cameraFlag", 1));
+        int cameraLens = sharedPref.getInt("cameraFlag", 0);
 
         // 第二个参数linearZoom [0.1f,1.0f] 指定焦距，默认0.1
         CameraXFragment cameraXFragment = CameraXFragment.newInstance(cameraLens,0.2f);
@@ -74,7 +75,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
         SearchProcessBuilder faceProcessBuilder = new SearchProcessBuilder.Builder(getApplication())
                 .setLifecycleOwner(this)
                 .setNeedMultiValidate(false)      //是否需要筛选结果防止误识别，需要硬件CPU配置高，Android 8+
-                .setThreshold(0.85f)              //阈值设置，范围限 [0.8 , 0.95] 识别可信度，也是识别灵敏度
+                .setThreshold(0.88f)              //阈值设置，范围限 [0.8 , 0.95] 识别可信度，也是识别灵敏度
                 .setNeedNirLiveness(false)        //是否需要红外活体能力，只有1:N VIP 有
                 .setNeedRGBLiveness(false)        //是否需要普通RGB活体检测能力，只有1:N VIP 有
                 .setLicenceKey("yourLicense")     //合作的VIP定制客户群体需要
@@ -97,7 +98,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
 
                     @Override
                     public void onSimilarMap(ArrayMap<String, Float> arrayMap, Bitmap bitmap) {
-                        //大于setThreshold 的都在这
+                        //大于setThreshold 的都在这 arrayMap里面，Key 是图片ID，Value 是相似度的值
 
                     }
 
@@ -140,6 +141,10 @@ public class FaceSearch1NActivity extends AppCompatActivity {
             }
         },3000);
 
+
+        Log.e("OAuth", "\n---------------------------------------------------------\n");
+        Log.e("OAuth", FaceSearchEngine.Companion.getInstance().getDeviceFootPrinter());
+        Log.e("OAuth", "\n---------------------------------------------------------\n");
 
 
     }

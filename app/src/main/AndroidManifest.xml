@@ -16,13 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name="com.ai.face.search.FaceImageEditActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
 
         <activity
             android:name="com.ai.face.search.SearchNaviActivity"
@@ -43,6 +36,15 @@
             android:name="com.ai.face.search.FaceSearchMNActivity"
             android:exported="false"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name="com.ai.face.search.FaceImageEditActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
     </application>
 
 </manifest>
