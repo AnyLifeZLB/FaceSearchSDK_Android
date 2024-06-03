@@ -142,10 +142,6 @@ public class FaceSearch1NActivity extends AppCompatActivity {
         },3000);
 
 
-        Log.e("OAuth", "\n---------------------------------------------------------\n");
-        Log.e("OAuth", FaceSearchEngine.Companion.getInstance().getDeviceFootPrinter());
-        Log.e("OAuth", "\n---------------------------------------------------------\n");
-
 
     }
 

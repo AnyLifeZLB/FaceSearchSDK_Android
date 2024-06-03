@@ -18,7 +18,6 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:background="@color/white"
                 android:gravity="center"
                 android:text="保存此人脸图 ？"
                 android:textStyle="bold"
@@ -26,13 +25,22 @@
                 android:textSize="18sp" />
 
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:gravity="center"
+                android:text="需为不戴口罩和墨镜的正脸"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="13sp" />
+
+
             <ImageView
                 android:id="@+id/preview"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
-                android:layout_width="188dp"
-                android:layout_height="188dp"/>
+                android:layout_width="177dp"
+                android:layout_height="177dp"/>
 
 
             <EditText

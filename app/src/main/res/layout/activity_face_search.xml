@@ -55,7 +55,7 @@
         android:paddingRight="8dp"
         android:paddingBottom="3dp"
         android:text="init"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
         android:gravity="center"
         android:text="It is a tips"
         android:textColor="@color/red"
-        android:textSize="14sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_camerax" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
