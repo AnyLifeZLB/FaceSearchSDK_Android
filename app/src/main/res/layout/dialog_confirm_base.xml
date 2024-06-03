@@ -27,11 +27,11 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="需为不戴口罩和墨镜的正脸"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="13sp" />
+                android:textSize="15sp" />
 
 
             <ImageView
@@ -39,8 +39,8 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
-                android:layout_width="177dp"
-                android:layout_height="177dp"/>
+                android:layout_width="155dp"
+                android:layout_height="155dp"/>
 
 
             <EditText
