@@ -9,8 +9,8 @@ android {
         applicationId "com.ai.facesearch.demo"
         minSdk 21
         targetSdk 33
-        versionCode 1
-        versionName "1.8.8"
+        versionCode 2
+        versionName "1.8.20"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -75,7 +75,7 @@ dependencies {
 
 
     //非标准设备有兼容性问题请联系，如自定义硬件板，外接摄像头 !
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.10' // 请依赖1.6 以上版本，老版本不再维护
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.20' // 请依赖1.6 以上版本，老版本不再维护
 
 
     implementation 'pub.devrel:easypermissions:3.0.0'
