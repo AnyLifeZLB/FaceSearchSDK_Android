@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context="com.ai.face.search.FaceImageEditActivity">
+    tools:context="com.ai.face.search.FaceImageMangerActivity">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -17,7 +17,7 @@
         android:background="?attr/colorPrimary"
         app:subtitleTextColor="#FFF"
         app:titleTextColor="#FFF"
-        app:title="人脸编辑"
+        app:title="人脸管理"
         tools:ignore="MissingConstraints" />
 
     <LinearLayout

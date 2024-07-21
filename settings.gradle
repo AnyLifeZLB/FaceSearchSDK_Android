@@ -18,5 +18,6 @@ dependencyResolutionManagement {
     }
 }
 
+
 rootProject.name='FaceSearchSDK'
 include ':app'

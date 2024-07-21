@@ -37,8 +37,14 @@
             android:exported="false"
             android:launchMode="singleTop" />
 
+
         <activity
-            android:name="com.ai.face.search.FaceImageEditActivity"
+            android:name="com.ai.face.search.NewFaceImageActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name="com.ai.face.search.FaceImageMangerActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

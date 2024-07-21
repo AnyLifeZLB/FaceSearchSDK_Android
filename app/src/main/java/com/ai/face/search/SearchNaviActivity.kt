@@ -12,7 +12,6 @@ import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.ai.face.FaceApplication
-import com.ai.face.base.utils.DeviceFingerprint
 import com.ai.face.faceSearch.search.FaceSearchImagesManger
 import com.ai.facesearch.demo.R
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchNaviBinding
@@ -94,7 +93,7 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
         binding.editFaceImage.setOnClickListener {
             startActivity(
-                Intent(baseContext, FaceImageEditActivity::class.java).putExtra(
+                Intent(baseContext, FaceImageMangerActivity::class.java).putExtra(
                     "isAdd",
                     false
                 )
@@ -104,7 +103,7 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
 
         binding.addFaceImage.setOnClickListener {
             startActivity(
-                Intent(baseContext, FaceImageEditActivity::class.java).putExtra(
+                Intent(baseContext, FaceImageMangerActivity::class.java).putExtra(
                     "isAdd",
                     true
                 )

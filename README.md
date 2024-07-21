@@ -25,7 +25,7 @@ On\_device Offline Android Face 1:N，M:N Search
 模拟N较大的情况，理论上N支持万张以上，需要验证更多人脸素材场景可以自行将人脸导入项目Assert目录验证大容量场景
 
 **特殊DIY Android系统 或 特殊定制硬件（基于RK3X88平台等），外接USB摄像头等**有问题请先提Issues附带Android版本、硬件配置、错误log等信息；
-或发反馈邮件到<anylife.zlb@gmail.com>（建议先熟悉人脸识别相关基础）
+或发反馈邮件到<anylife.zlb@gmail.com> 或添加微信 HaoNan19990322 联系（建议先熟悉人脸识别相关基础）
 
 SDK 演示目前仅仅托管在GitHub，其他镜像版本大概率不是最新的，请移步到GitHub 更新最新的演示代码
 
@@ -33,7 +33,7 @@ SDK 演示目前仅仅托管在GitHub，其他镜像版本大概率不是最新�
 
 **1.首先Gradle 中引入依赖**
 
-implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.10' //请依赖最新稳定版本
+implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.21' //请依赖最新稳定版本
 
 **2.检查依赖冲突等**
 
@@ -52,7 +52,7 @@ configurations.all {
 
 ***推荐快速接入SDK相机管理的初始化***
 
-第一个参数0/1 指定前后摄像头； 第二个参数linearZoom \[0.1f,1.0f] 指定焦距，默认0.1
+第一个参数0/1 指定前后摄像头； 第二个参数linearZoom \[0.01f,1.0f] 指定焦距，默认0.1
 cameraXFragment = CameraXFragment.newInstance(cameraLensFacing,0.12f);
 
 然后在相机分析回调中调用FaceSearchEngine 搜索引擎进行工作

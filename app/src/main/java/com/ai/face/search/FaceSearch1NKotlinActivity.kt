@@ -31,6 +31,8 @@ import kotlin.concurrent.schedule
  * Kotlin 演示，仅仅是简单的演示，详细的请参考FaceSearch1NActivity
  * 默认使用Java ，因为大部分客户还是Java 开发
  *
+ * kotlin 不维护，相信有java 演示，Kotlin 对你来说很简单
+ *
  */
 class FaceSearch1NKotlinActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFaceSearchBinding
@@ -38,8 +40,8 @@ class FaceSearch1NKotlinActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFaceSearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.tips.setOnClickListener { v: View? ->
-            startActivity(Intent(this, FaceImageEditActivity::class.java))
+        binding.tips.setOnClickListener {
+            startActivity(Intent(this, FaceImageMangerActivity::class.java))
         }
         val sharedPref = getSharedPreferences("faceVerify", MODE_PRIVATE)
 
@@ -98,8 +100,7 @@ class FaceSearch1NKotlinActivity : AppCompatActivity() {
         Timer().schedule(3000){ //需要等一下执行，FaceSearchEngine初始化需要时间
             FaceSearchEngine.Companion().instance.runSearch(getBitmapFromAsset(assets,"b1.jpeg")!!)
         }
-
-
+        
     }
 
     /**
