@@ -162,7 +162,7 @@ class SearchNaviActivity : AppCompatActivity(), PermissionCallbacks {
             if (subFaceFiles != null) {
                 for (index in subFaceFiles.indices) {
                     //插入照片
-                    FaceSearchImagesManger.IL1Iii .getInstance(context)?.insertOrUpdateFaceImage(
+                    FaceSearchImagesManger.Companion().getInstance(context)?.insertOrUpdateFaceImage(
                         getBitmapFromAsset(
                             assetManager,
                             subFaceFiles[index]

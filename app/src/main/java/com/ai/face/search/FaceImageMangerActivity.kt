@@ -35,7 +35,7 @@ import java.util.Locale
 /**
  * 演示如何通过SDK API 增删改 编辑人脸图片
  * 人脸图片不要直接放进文件夹，这样不会生效，要通过SDK API 进行插入
- * FaceSearchImagesManger.IL1Iii.getInstance(application)
+ * FaceSearchImagesManger.Companion().getInstance(application)
  *                     ?.insertOrUpdateFaceImage
  *
  */
@@ -98,7 +98,11 @@ class FaceImageMangerActivity : AppCompatActivity() {
                 .setPositiveButton("确定") { _: DialogInterface?, _: Int ->
 
                     //删除一张照片
-                    FaceSearchImagesManger.IL1Iii .getInstance(application)
+//                    FaceSearchImagesManger.IL1Iii.getInstance(application)
+//                        ?.deleteFaceImage(faceImageList[i])
+
+
+                    FaceSearchImagesManger.Companion().getInstance(application)
                         ?.deleteFaceImage(faceImageList[i])
 
                     //更新列表
@@ -195,7 +199,7 @@ class FaceImageMangerActivity : AppCompatActivity() {
             val bitmap = BitmapFactory.decodeByteArray(bis, 0, bis!!.size)
 
             CoroutineScope(Dispatchers.IO).launch {
-                FaceSearchImagesManger.IL1Iii.getInstance(application)
+                FaceSearchImagesManger.Companion().getInstance(application)
                     ?.insertOrUpdateFaceImage(bitmap, CACHE_SEARCH_FACE_DIR+File.separatorChar+faceName)
                 delay(300)
                 MainScope().launch {
