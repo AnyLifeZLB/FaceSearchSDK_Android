@@ -34,6 +34,7 @@ import kotlin.concurrent.schedule
  * kotlin 不维护，相信有java 演示，Kotlin 对你来说很简单
  *
  */
+@Deprecated("默认使用Java ，因为大部分客户还是Java 开发")
 class FaceSearch1NKotlinActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFaceSearchBinding
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -34,7 +34,6 @@ import java.util.TimerTask;
 /**
  * 应多位用户要求，默认使用java 版本演示怎么快速接入SDK。
  *
- * JAVA FIRST,Kotlin 可以一键转化
  *
  */
 public class FaceSearch1NActivity extends AppCompatActivity {
@@ -66,7 +65,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
             if (!isDestroyed() && !isFinishing()) {
                 //第二个参数传0表示不裁剪
                 //大于0 表示裁剪距中的正方形区域范围为人脸检测区，参数为正方形区域距离屏幕边缘的值
-//                FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
+                FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
             }
         });
 
@@ -82,7 +81,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 .setFaceLibFolder(CACHE_SEARCH_FACE_DIR)  //内部存储目录中保存N 个人脸图片库的目录
                 .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
                 .setProcessCallBack(new SearchProcessCallBack() {
-                    //人脸识别检索回调
+                    //人脸识别检索回调，最匹配的那个
                     @Override
                     public void onMostSimilar(String similar,float value, Bitmap realTimeImg) {
                         //根据你的业务逻辑，各种提示 & 触发成功后面的操作
@@ -95,10 +94,31 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                                 .into(binding.image);
                     }
 
+                    /**
+                     * 大于设置阈值的搜索结果，长的像的都会搜索出来
+                     * @param arrayMap 大于设置阈值对应的人脸库中的图片ID和得分
+                     * @param bitmap 摄像头的画面帧数据
+                     */
                     @Override
                     public void onSimilarMap(ArrayMap<String, Float> arrayMap, Bitmap bitmap) {
                         //大于setThreshold 的都在这 arrayMap里面，Key 是图片ID，Value 是相似度的值
 
+                    }
+
+                    /**
+                     * onSimilarMap 的拓展，多了rect 和faceBitmap
+                     *
+                     * @param faceSearchResults 搜索结果
+                     *         Rect rect;                人脸的坐标
+                     *         String faceName;          搜索匹配到的人脸的图片名字
+                     *         float faceScore;          搜索匹配到的人脸相似度值
+                     *         final Bitmap faceBitmap   检测到的人脸（坐标rect圈出来的图像Bitmap）
+                     *
+                     * @param bitmap 摄像头采集的当前帧图像
+                     */
+                    @Override
+                    public void onFaceMatched(List<FaceSearchResult> faceSearchResults,Bitmap bitmap) {
+                        binding.graphicOverlay.drawRect(faceSearchResults, cameraXFragment);
                     }
 
                     @Override
@@ -106,23 +126,6 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                         showPrecessTips(i);
                     }
 
-                    /**
-                     *
-                     * @param faceSearchResults 搜索结果
-                     *         Rect rect;                人脸的坐标
-                     *         String faceName;          搜索匹配到的人脸的图片名字
-                     *         float faceScore;          搜索匹配到的人脸相似度值
-                     *         final Bitmap faceBitmap   检测到的人脸（坐标rect圈出来的图像Bitmap） 暂空
-                     *
-                     * @param bitmap 摄像头采集的当前帧图像
-                     */
-                    @Override
-                    public void onFaceMatched(List<FaceSearchResult> faceSearchResults,Bitmap bitmap) {
-                        binding.graphicOverlay.drawRect(faceSearchResults, cameraXFragment);
-//                        if(!rectLabels.isEmpty()) {
-//                            binding.searchTips.setText("");
-//                        }
-                    }
 
                     @Override
                     public void onLog(String log) {
@@ -136,7 +139,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
         FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 
 
-        // 4.简单的单张图片搜索，不用摄像头的形式
+        // 4.简单的单张图片帧搜索，不用摄像头的形式
         // 需要注释掉这行代码 FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
         new Timer().schedule(new TimerTask() {
             @Override
@@ -145,8 +148,6 @@ public class FaceSearch1NActivity extends AppCompatActivity {
 //                FaceSearchEngine.Companion.getInstance().runSearch("your bitmap here");
             }
         },3000);
-
-
 
     }
 
@@ -167,6 +168,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                 binding.searchTips.setText("识别阈值Threshold范围为0.8-0.95");
                 break;
 
+            //疫情已经过去了，默认没有这个功能
             case MASK_DETECTION:
                 binding.searchTips.setText("请摘下口罩");
                 break;
@@ -183,6 +185,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
             case FACE_DIR_EMPTY:
                 //增删改人脸 参考@FaceImageEditActivity 中的方式，需要使用SDK 中的API 进行操作不能直接插入图片
                 binding.searchTips.setText("人脸库为空");
+                binding.tips.setText("去管理人脸库");
                 break;
 
             case NO_MATCHED:

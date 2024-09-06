@@ -33,7 +33,7 @@ SDK 演示目前仅仅托管在GitHub，其他镜像版本大概率不是最新�
 
 **1.首先Gradle 中引入依赖**
 
-implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.26' //请依赖最新稳定版本
+implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.27' //请依赖最新稳定版本
 
 **2.检查依赖冲突等**
 
