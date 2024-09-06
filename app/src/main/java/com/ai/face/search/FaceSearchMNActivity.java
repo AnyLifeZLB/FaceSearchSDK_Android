@@ -10,6 +10,7 @@ import static com.ai.face.faceSearch.search.SearchProcessTipsCode.THRESHOLD_ERRO
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
@@ -17,9 +18,10 @@ import com.ai.face.base.view.CameraXFragment;
 import com.ai.face.faceSearch.search.FaceSearchEngine;
 import com.ai.face.faceSearch.search.SearchProcessBuilder;
 import com.ai.face.faceSearch.search.SearchProcessCallBack;
-import com.ai.face.faceSearch.utils.RectLabel;
 import com.ai.facesearch.demo.R;
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchMnBinding;
+import com.ai.face.faceSearch.utils.FaceSearchResult;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -69,14 +71,21 @@ public class FaceSearchMNActivity extends AppCompatActivity {
                 .setImageFlipped(cameraLens == CameraSelector.LENS_FACING_FRONT) //手机的前置摄像头imageProxy 拿到的图可能左右翻转
                 .setProcessCallBack(new SearchProcessCallBack() {
 
-                    //坐标框和对应的 搜索匹配到的图片标签
-                    //人脸检测成功后画白框，此时还没有标签字段Label 字段为空
-                    //人脸搜索匹配成功后白框变绿框，并标记出对应的Label（就是人脸ID名称）
+                    /**
+                     *
+                     * @param faceSearchResults 搜索结果
+                     *         Rect rect;                人脸的坐标
+                     *         String faceName;          搜索匹配到的人脸的图片名字
+                     *         float faceScore;          搜索匹配到的人脸相似度值
+                     *         final Bitmap faceBitmap   检测到的人脸（坐标rect圈出来的图像Bitmap） 暂空
+                     *
+                     * @param bitmap 摄像头采集的当前帧图像
+                     */
                     @Override
-                    public void onFaceMatched(List<RectLabel> rectLabels) {
-                        binding.graphicOverlay.drawRect(rectLabels, cameraX);
+                    public void onFaceMatched(List<FaceSearchResult> faceSearchResults, Bitmap bitmap) {
+                        binding.graphicOverlay.drawRect(faceSearchResults, cameraX);
 
-                        if(!rectLabels.isEmpty()) {
+                        if(!faceSearchResults.isEmpty()) {
                             binding.searchTips.setText("");
                         }
                     }

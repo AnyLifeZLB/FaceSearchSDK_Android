@@ -19,7 +19,7 @@ import com.ai.face.base.view.CameraXFragment;
 import com.ai.face.faceSearch.search.FaceSearchEngine;
 import com.ai.face.faceSearch.search.SearchProcessBuilder;
 import com.ai.face.faceSearch.search.SearchProcessCallBack;
-import com.ai.face.faceSearch.utils.RectLabel;
+import com.ai.face.faceSearch.utils.FaceSearchResult;
 import com.ai.face.utils.VoicePlayer;
 import com.ai.facesearch.demo.R;
 import com.ai.facesearch.demo.databinding.ActivityFaceSearchBinding;
@@ -66,7 +66,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
             if (!isDestroyed() && !isFinishing()) {
                 //第二个参数传0表示不裁剪
                 //大于0 表示裁剪距中的正方形区域范围为人脸检测区，参数为正方形区域距离屏幕边缘的值
-                FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
+//                FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
             }
         });
 
@@ -106,13 +106,19 @@ public class FaceSearch1NActivity extends AppCompatActivity {
                         showPrecessTips(i);
                     }
 
-                    //坐标框和对应的 搜索匹配到的图片标签
-                    //人脸检测成功后画白框，此时还没有标签字段Label 字段为空
-                    //人脸搜索匹配成功后白框变绿框，并标记出对应的Label
-                    //部分设备会有左右图像翻转问题
+                    /**
+                     *
+                     * @param faceSearchResults 搜索结果
+                     *         Rect rect;                人脸的坐标
+                     *         String faceName;          搜索匹配到的人脸的图片名字
+                     *         float faceScore;          搜索匹配到的人脸相似度值
+                     *         final Bitmap faceBitmap   检测到的人脸（坐标rect圈出来的图像Bitmap） 暂空
+                     *
+                     * @param bitmap 摄像头采集的当前帧图像
+                     */
                     @Override
-                    public void onFaceMatched(List<RectLabel> rectLabels) {
-                        binding.graphicOverlay.drawRect(rectLabels, cameraXFragment);
+                    public void onFaceMatched(List<FaceSearchResult> faceSearchResults,Bitmap bitmap) {
+                        binding.graphicOverlay.drawRect(faceSearchResults, cameraXFragment);
 //                        if(!rectLabels.isEmpty()) {
 //                            binding.searchTips.setText("");
 //                        }
@@ -181,7 +187,7 @@ public class FaceSearch1NActivity extends AppCompatActivity {
 
             case NO_MATCHED:
                 //本次摄像头预览帧无匹配而已，会快速取下一帧进行分析检索
-                binding.searchTips.setText("无匹配，请正对摄像头");
+                binding.searchTips.setText("无人脸匹配");
 
                 break;
         }
