@@ -12,8 +12,9 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 
+
 import com.ai.face.base.view.CameraXFragment;
-import com.ai.face.faceSearch.utils.RectLabel;
+import com.ai.face.faceSearch.utils.FaceSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class GraphicOverlay extends View {
     private float scaleX = 1.0f;
     private float scaleY = 1.0f;
     private final Paint textPaint = new Paint();
-    private List<RectLabel> rectFList = new ArrayList<>();
+    private List<FaceSearchResult> rectFList = new ArrayList<>();
 
     public GraphicOverlay(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -49,14 +50,14 @@ public class GraphicOverlay extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        for (RectLabel rectLabel : rectFList) {
+        for (FaceSearchResult rectLabel : rectFList) {
             rectPaint.setColor(Color.WHITE);
-            if (!TextUtils.isEmpty(rectLabel.getLabel())) {
+            if (!TextUtils.isEmpty(rectLabel.getFaceName())) {
                 rectPaint.setColor(Color.GREEN);
                 textPaint.setTextSize(44.0f);
                 textPaint.setTypeface(Typeface.DEFAULT);
                 textPaint.setColor(Color.GREEN);
-                canvas.drawText(rectLabel.getLabel().replace(".jpg","  ")+rectLabel.getValue(), rectLabel.getRect().left + 22.0f, rectLabel.getRect().top + 55.0f, textPaint);
+                canvas.drawText(rectLabel.getFaceName().replace(".jpg","  ")+rectLabel.getFaceScore(), rectLabel.getRect().left + 22.0f, rectLabel.getRect().top + 55.0f, textPaint);
             }
             rectPaint.setStrokeWidth(3.0f);
             rectPaint.setStyle(Paint.Style.STROKE);
@@ -64,7 +65,7 @@ public class GraphicOverlay extends View {
         }
     }
 
-    public void drawRect(List<RectLabel> rectLabels, CameraXFragment cameraXFragment) {
+    public void drawRect(List<FaceSearchResult> rectLabels, CameraXFragment cameraXFragment) {
         this.rectFList = adjustBoundingRect(rectLabels);
         this.scaleX = cameraXFragment.getScaleX();
         this.scaleY = cameraXFragment.getScaleY();
@@ -80,12 +81,12 @@ public class GraphicOverlay extends View {
         return (int) (scaleY * y);
     }
 
-    private List<RectLabel> adjustBoundingRect(List<RectLabel> rectLabels) {
-        List<RectLabel> labels = new ArrayList<>();
+    private List<FaceSearchResult> adjustBoundingRect(List<FaceSearchResult> rectLabels) {
+        List<FaceSearchResult> labels = new ArrayList<>();
         int padding = 10;
 
         //调整一点，有点偏差的处理。Rect 框问题。
-        for (RectLabel rectLabel : rectLabels) {
+        for (FaceSearchResult rectLabel : rectLabels) {
             Rect rect = new Rect(
                     translateX(rectLabel.getRect().left)  ,
                     translateY(rectLabel.getRect().top) - padding,
@@ -93,7 +94,7 @@ public class GraphicOverlay extends View {
                     translateY(rectLabel.getRect().bottom) + padding
             );
 
-            labels.add(new RectLabel(rect, rectLabel.getLabel(),rectLabel.getValue()));
+            labels.add(new FaceSearchResult(rect, rectLabel.getFaceName(),rectLabel.getFaceScore()));
         }
 
         return labels;

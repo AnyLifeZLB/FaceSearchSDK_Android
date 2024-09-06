@@ -10,7 +10,7 @@ android {
         minSdk 21
         targetSdk 34
         versionCode 4
-        versionName "1.8.24"
+        versionName "1.8.26"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -75,7 +75,7 @@ dependencies {
 
 
     //非标准设备有兼容性问题请联系，如自定义硬件板，外接摄像头 !
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.25.beta5' //新版已经全系升级高清人脸
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.26' //新版已经全系升级高清人脸
 
 
     implementation 'pub.devrel:easypermissions:3.0.0'
