@@ -33,7 +33,7 @@ SDK 演示目前仅仅托管在GitHub，其他镜像版本大概率不是最新�
 
 **1.首先Gradle 中引入依赖**
 
-implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.27' //请依赖最新稳定版本
+implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.28' //请依赖最新稳定版本
 
 **2.检查依赖冲突等**
 
@@ -79,7 +79,7 @@ cameraX.setOnAnalyzerListener(imageProxy -> {
     ```  
         FaceProcessBuilder faceProcessBuilder = new FaceProcessBuilder.Builder(this)
                 .setNeedMultiValidate(false)      //是否需要筛选结果防止误识别，需要硬件CPU配置高，Android 8+
-                .setThreshold(0.85f)              //阈值设置，范围限 [0.8 , 0.95] 识别可信度，也是识别灵敏度
+                .setThreshold(0.8f)              //阈值设置，范围限 [0.8 , 0.95] 识别可信度，也是识别灵敏度
                 .setNeedNirLiveness(false)        //是否需要红外活体能力，只有1:N VIP 有
                 .setNeedRGBLiveness(false)        //是否需要普通RGB活体检测能力，只有1:N VIP 有
                 .setLicenceKey("yourLicense")     //合作的VIP定制客户群体需要

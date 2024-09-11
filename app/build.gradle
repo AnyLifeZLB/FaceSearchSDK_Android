@@ -75,7 +75,7 @@ dependencies {
 
 
     //非标准设备有兼容性问题请联系，如自定义硬件板，外接摄像头 !
-    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.27' //新版已经全系升级高清人脸
+    implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.28' //新版已经全系升级高清人脸
 
 
     implementation 'pub.devrel:easypermissions:3.0.0'
