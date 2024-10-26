@@ -5,7 +5,8 @@
 On\_device Offline Android Face 1:N，M:N Search
 (含有1:1人脸识别活体检测各种功能完整版本的工程地址：<https://github.com/AnyLifeZLB/FaceVerificationSDK>)
 
-**如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**
+**如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**  
+
 **如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**
 
 
