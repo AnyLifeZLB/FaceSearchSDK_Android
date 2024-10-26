@@ -1,9 +1,12 @@
 ## FaceSearchSDK\_Android
 
 应用户要求，人脸识别1：N ,M:N检索独立成库，以便减少体积和快速接入SDK, 这是独立版本的人脸识别搜索，
-离线版Android 1:N,M:N 人脸识别检索，速度快精度高，不用联网就能工作，离线授权激活后不限使用时长和设备量。
+离线版Android 1:N,M:N 人脸识别检索，速度快，不用联网就能工作，离线授权激活后不限使用时长和设备量。
 On\_device Offline Android Face 1:N，M:N Search
-(含有1:1 人脸识别活体检测完整版本的工程地址：<https://github.com/AnyLifeZLB/FaceVerificationSDK>)
+(含有1:1人脸识别活体检测各种功能完整版本的工程地址：<https://github.com/AnyLifeZLB/FaceVerificationSDK>)
+
+**如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**
+**如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**
 
 
 <img width="1354" alt="image" src="https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/b61d6ab9-b695-4d75-a9cd-42c27ecacc67">
