@@ -9,6 +9,11 @@ On\_device Offline Android Face 1:N，M:N Search
 
 **如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**
 
+完整版主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK
+
+
+
+
 
 <img width="1354" alt="image" src="https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/b61d6ab9-b695-4d75-a9cd-42c27ecacc67">
 
