@@ -1,17 +1,15 @@
-## FaceSearchSDK\_Android
+# 本项目已经合并到主工程，精力有限无法同步维护
+
+** 完整版主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK **
+
+
+
+## FaceSearchSDK_Android
 
 应用户要求，人脸识别1：N ,M:N检索独立成库，以便减少体积和快速接入SDK, 这是独立版本的人脸识别搜索，
 离线版Android 1:N,M:N 人脸识别检索，速度快，不用联网就能工作，离线授权激活后不限使用时长和设备量。
 On\_device Offline Android Face 1:N，M:N Search
 (含有1:1人脸识别活体检测各种功能完整版本的工程地址：<https://github.com/AnyLifeZLB/FaceVerificationSDK>)
-
-**如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**  
-
-**如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**
-
-完整版主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK
-
-
 
 
 
@@ -138,12 +136,14 @@ FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 
 ## Demo 下载体验
 
-最新版体验下载地址： <https://www.pgyer.com/FaceSearchSDK>
-或者直接扫码安装
+
+   扫码后选择在浏览器中打开点击下载安装，或直接输入地址 https://www.pgyer.com/faceVerify
 
 <div align=center>
-<img src="https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/119f33ec-5525-4943-ad35-ef400a408172" width = 30% height = 30% />
+<img src="https://user-images.githubusercontent.com/15169396/210045090-60c073df-ddbd-4747-8e24-f0dce1eccb58.png" width = 30% height = 30% />
 </div>
+  
+
 
 
 **更多使用说明下载参考本Repo和下载Demo代码体验，里面有比较详尽的使用方法，其中**
@@ -151,3 +151,7 @@ FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
 ### 演示视频快速预览
 
 <https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/46cca423-1cc9-4861-bec9-7457f68ad986>
+
+# 本项目已经合并到主工程，精力有限无法同步维护
+
+** 完整版主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK **
