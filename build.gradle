@@ -1,30 +1,63 @@
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
 
-plugins {
-    id 'com.android.application' version '7.3.1' apply false
-    id 'com.android.library' version '7.3.1' apply false
-    id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
-    id("com.google.devtools.ksp") version "1.8.10-1.0.9" apply false
+        //多放几个国内的依赖托管镜像源，工程师可以根据公司的网络屏蔽情况自行替换
+        maven {url "https://maven.aliyun.com/nexus/content/groups/public/"}
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url "https://jitpack.io" }
 
-
+    }
 }
 
+buildscript {
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
+    //FaceAILib 的java version 和Kotlin 配置
+    ext {
+        kotlin_version = "1.7.20"
+        java_version = JavaVersion.VERSION_11
+    }
+
+    repositories {
+        google()
+        mavenCentral()
+    }
 
 
-////如果和你的项目中Kotlin 依赖不一致。 强制统一项目中的Kotlin 版本依赖
-//ConfigurationContainer container = project.configurations
-//container.all { Configuration conf ->
-//    ResolutionStrategy rs = conf.resolutionStrategy
-//    rs.eachDependency { details ->
-//        def requested = details.requested
-//        if (requested.group == "org.jetbrains.kotlin") {
-//            //统一内部 kotlin 库的版本
-//            details.useVersion("$kotlin_version")
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"
+    }
+
+
+
+
+//    plugins {
+//        id 'com.android.application' version '7.4.2' apply false
+//        id 'com.android.library' version '7.4.2' apply false
+//
+//        id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+//        id("com.google.devtools.ksp") version "1.8.10-1.0.9" apply false
+//
+//        id "com.vanniktech.maven.publish.base" version "0.25.3"
+//    }
+
+
+//   //如果和你的项目中Kotlin 依赖不一致。 强制统一项目中的Kotlin 版本依赖
+//    ConfigurationContainer container = project.configurations
+//    container.configureEach { Configuration conf ->
+//        ResolutionStrategy rs = conf.resolutionStrategy
+//        rs.eachDependency { details ->
+//            def requested = details.requested
+//            if (requested.group == "org.jetbrains.kotlin") {
+//                //统一内部 kotlin 库的版本
+//                details.useVersion("$kotlin_version")
+//            }
 //        }
 //    }
-//}
+
+}
 
 

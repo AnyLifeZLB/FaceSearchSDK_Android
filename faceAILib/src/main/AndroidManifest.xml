@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- 语音提示 -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+
+
+    <application>
+
+        <activity
+            android:name=".UVCCamera.BinocularUVCCameraActivity"
+            android:theme="@style/FaceAITheme"
+            android:exported="true"/>
+
+        <activity
+            android:name=".UVCCamera.addFace.AddFaceUVCCameraActivity"
+            android:theme="@style/FaceAITheme"
+            android:exported="true"/>
+
+        <activity
+            android:name=".FaceAINaviActivity"
+            android:configChanges="orientation"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".verify.TwoFaceImageVerifyActivity"
+            android:configChanges="orientation"
+            android:theme="@style/FaceAITheme"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".verify.FaceVerificationActivity"
+            android:theme="@style/FaceAITheme"
+            android:exported="false"/>
+
+        <activity
+            android:name=".AboutFaceAppActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".addFaceImage.AddFaceImageActivity"
+            android:theme="@style/FaceAITheme"
+            android:exported="false" />
+
+        <activity
+            android:name=".search.FaceSearch1NActivity"
+            android:theme="@style/FaceAITheme"
+            android:exported="false" />
+
+        <activity
+            android:name=".search.FaceSearchMNActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
+        <activity
+            android:name=".search.FaceSearchImageMangerActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".verify.FaceVerifyWelcomeActivity"
+            android:exported="false">
+        </activity>
+
+
+        <activity
+            android:name=".search.SearchNaviActivity"
+            android:exported="false">
+        </activity>
+
+
+    </application>
+
+</manifest>

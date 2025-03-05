@@ -1,153 +1,145 @@
-## FaceSearchSDK\_Android
+<img src="https://badgen.net/badge/FaceAI%20SDK/%20%E5%BF%AB%E9%80%9F%E5%AE%9E%E7%8E%B0%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E5%8A%9F%E8%83%BD" />
 
-应用户要求，人脸识别1：N ,M:N检索独立成库，以便减少体积和快速接入SDK, 这是独立版本的人脸识别搜索，
-离线版Android 1:N,M:N 人脸识别检索，速度快，不用联网就能工作，离线授权激活后不限使用时长和设备量。
-On\_device Offline Android Face 1:N，M:N Search
-(含有1:1人脸识别活体检测各种功能完整版本的工程地址：<https://github.com/AnyLifeZLB/FaceVerificationSDK>)
-
-**如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**  
-
-**如果对APK 包体积不敏感强烈建议使用完整版本SDK.精度更高**
-
-完整版主工程地址：https://github.com/AnyLifeZLB/FaceVerificationSDK
+<br>
+<a href='https://play.google.com/store/apps/details?id=com.ai.face.verifyPub'><img alt='Get FaceAI On Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height='80'/></a>
+<br>
 
 
+# [关于「保护伞FaceAI SDK」](https://github.com/AnyLifeZLB/FaceVerificationSDK)
 
+Umbrella FaceAI SDK on_device Offline Android Face Detection 、Recognition 、Liveness Detection Anti Spoofing and 1:N/M:N Face Search SDK  
 
-
-<img width="1354" alt="image" src="https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/b61d6ab9-b695-4d75-a9cd-42c27ecacc67">
-
-
-**首次接入SDK建议先下载DemoAPK安装了解本SDK 的基本功能，服务与政策，下载本Demo 跑一跑流程熟悉基础接入.**
-
-** SDK支持Android 5+，建议设备配置 CPU为八核64位2.0 GHz以上  摄像头RGB 宽动态镜头分辨率720p以上，帧率大于30，无拖影 **
-
-## 简要介绍
-
-简单使用场景(接入正式项目请先充分熟悉SDK接入Demo，验证可行性！！)
-
-* 【1:N】 小区门禁，智能门锁，考勤机，智慧校园、工地、社区、酒店等
-* 【M:N】 公安布控，特定群体追踪等
-
-目前人脸检索速度约50MS(三星N9700千张人脸验证)，人脸检索的速度和硬件配置，人脸质量和识别threshold（阈值）设置有关.
-运行本Demo体验的时候点击导航页\[增删改人脸] 后进入编辑页面，点击右上角\[拍照]启动系统相机自拍一张.也可以点击\[App 内置200张Ai人脸头像]
-模拟N较大的情况，理论上N支持万张以上，需要验证更多人脸素材场景可以自行将人脸导入项目Assert目录验证大容量场景
-
-**特殊DIY Android系统 或 特殊定制硬件（基于RK3X88平台等），外接USB摄像头等**有问题请先提Issues附带Android版本、硬件配置、错误log等信息；
-或发反馈邮件到<anylife.zlb@gmail.com> 或添加微信 HaoNan19990322 联系（建议先熟悉人脸识别相关基础）
-
-SDK 演示目前仅仅托管在GitHub，其他镜像版本大概率不是最新的，请移步到GitHub 更新最新的演示代码
-
-## SDK接入简要流程
-
-**1.首先Gradle 中引入依赖**
-
-implementation 'io.github.anylifezlb:FaceSearchSDK:1.8.28' //请依赖最新稳定版本
-
-**2.检查依赖冲突等**
-
-SDK开发的 compileSdk=33，需要Kotlin 环境支持，如果遇到依赖冲突或者SDK集成编译问题请参考升级或解决冲突
-```
-//若第三方依赖有冲突，或者因为compileSdk过低需要降级依赖版本可以参考修改
-configurations.all {
-    resolutionStrategy {
-        force 'org.android.google:9.9.9' //合适不冲突版本
-    }
-}
-
-```
-**3.确定是否自行管理相机还是默认使用SDK相机管理摄像头**
-
-
-***推荐快速接入SDK相机管理的初始化***
-
-第一个参数0/1 指定前后摄像头； 第二个参数linearZoom \[0.01f,1.0f] 指定焦距，默认0.1
-cameraXFragment = CameraXFragment.newInstance(cameraLensFacing,0.12f);
-
-然后在相机分析回调中调用FaceSearchEngine 搜索引擎进行工作
-
-```
-cameraX.setOnAnalyzerListener(imageProxy -> {
-      FaceSearchEngine.Companion.getInstance().runSearch(imageProxy, 0);
-});
-```
-
-
-***自定义管理相机***
-
-如果你的项目需要高定制化相机管理或者自定义硬件相机数据格式，方向不兼容需要自行管理可以不使用SDK 中的CameraXFragment管理相机，我们有个小Demo演示双目摄像头自行管理相机你仅仅需要在子线程中持续输入图像帧Bitmap. SDK 在后续流程中会检测人脸，搜索人脸并进行状态和结果回调。
-```
-    //1.在摄像头回调预览中循环调用runSearch()方法
-    //自行保证Bitmap 的方向角度正确无旋转，清晰度。runSearch必须在子线程运行
-    FaceSearchEngine.Companion.getInstance().runSearch(realTimeFaceBmp);
-```
-更多的请参考 https://github.com/AnyLifeZLB/BinocularCameraFaceSearch
-
-**4.人脸搜索过程中各种参数的初始化**
-
-    ```  
-        FaceProcessBuilder faceProcessBuilder = new FaceProcessBuilder.Builder(this)
-                .setNeedMultiValidate(false)      //是否需要筛选结果防止误识别，需要硬件CPU配置高，Android 8+
-                .setThreshold(0.8f)              //阈值设置，范围限 [0.8 , 0.95] 识别可信度，也是识别灵敏度
-                .setNeedNirLiveness(false)        //是否需要红外活体能力，只有1:N VIP 有
-                .setNeedRGBLiveness(false)        //是否需要普通RGB活体检测能力，只有1:N VIP 有
-                .setLicenceKey("yourLicense")     //合作的VIP定制客户群体需要
-                .create();
-
-        faceDetectorUtils.setDetectorParams(faceProcessBuilder);
-
-    ```
-
-
-
-//初始化引擎，开始人脸检索
-FaceSearchEngine.Companion.getInstance().initSearchParams(faceProcessBuilder);
-
-//搜索的各种状态和结果回调，更多参考Demo
-
-```
- .setProcessCallBack(new SearchProcessCallBack() {
-     @Override
-     public void onMostSimilar(String similar, Bitmap bitmap) {
-         binding.resultId.setText(similar);
-         Glide.with(requireContext())
-              .load(CACHE_SEARCH_FACE_DIR + File.separatorChar + similar)
-              .diskCacheStrategy(DiskCacheStrategy.NONE)
-              .transform(new RoundedCorners(12)) // 数字根据自己需求来改
-              .into(binding.resultImg);
-     }
-
-     @Override
-     public void onProcessTips(int i) {
-          showPrecessTips(i);
-     }
- }
-
-```
-
-
-
-### 注意事项
-
-1.  所有的人脸都必须通过SDK 的API 插入到人脸管理目录，而不是File 文件放入到目录就行，SDK API 还会提取人脸特征操作
-2.  录入的人脸底片请使用正脸无遮挡的清晰照片，平时戴眼睛的依然使用戴眼镜的人脸照片
-3.  setNeedMultiValidate 和 setThreshold 根据你项目需要精确度和反应速度合理设置参数
-4.  Demo 中有Assert 有250 张测试人脸；你可以在人脸管理页面中右上角通过自拍添加一张个人清晰人脸照进行测试验证
-5.  请勿不经验证直接用于生产环境，特别是有严格匹配的场景
-
-
-## Demo 下载体验
-
-最新版体验下载地址： <https://www.pgyer.com/FaceSearchSDK>
-或者直接扫码安装
+保护伞FaceAI SDK是设备端可离线不联网Android 人脸识别、动作及近红外IR活体检测、人脸图质量检测以及人脸搜索（1:N和M:N）SDK，可快速集成实现人脸识别，人脸搜索功能。  
 
 <div align=center>
-<img src="https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/119f33ec-5525-4943-ad35-ef400a408172" width = 30% height = 30% />
+<img src="https://github.com/user-attachments/assets/b1e0a9c4-8b43-4eb8-bf7a-7632901cfb2c" width = 20% height = 20% />
 </div>
 
 
-**更多使用说明下载参考本Repo和下载Demo代码体验，里面有比较详尽的使用方法，其中**
+![端侧设备端离线机器学习优点](https://github.com/user-attachments/assets/06b0d254-964f-4277-9198-9d5fa920d95c)
 
-### 演示视频快速预览
 
-<https://github.com/AnyLifeZLB/FaceSearchSDK_Android/assets/15169396/46cca423-1cc9-4861-bec9-7457f68ad986>
+
+<div align=center>
+<img src="https://github.com/user-attachments/assets/84da1e48-9feb-4eba-bc53-17c70e321111" width = 20% height = 20% />
+</div>
+
+
+## 当前版本说明 V1.9.3 (建议升级到GitHub Demo版本)
+- 删除不需要权限，上架Google Play认证
+- 优化光线不佳活体检测和录入人脸活体校验
+- 优化SDK体验，支持自定义管理摄像头
+- 完善UVC协议USB红外双目摄像头人脸识别
+
+ 建议[Fork] + [Star] 本项目Repo以便第一手获取更新：[FaceVerificationSDK](https://github.com/AnyLifeZLB/FaceVerificationSDK) 
+
+ **人脸识别FaceAI SDK最新版源码唯一托管地址：** https://github.com/AnyLifeZLB/FaceVerificationSDK  
+ **国内代码托管地址Gitee不是最新:** https://gitee.com/onDeviceAI/FaceVerificationSDK (不方便翻墙请联系获取最新代码)
+
+
+## 简要说明
+
+SDK包含动作活体、静默活体检测，[1：1人脸识别以及1：N , M:N人脸识别检索](https://github.com/AnyLifeZLB/FaceVerificationSDK/blob/main/Introduce_11_1N_MN.md)，**所有功能都在设备终端离线执行，SDK本身不用联网，不保存不上传任何人脸信息敏感资料更具隐私安全**
+
+其中活体检测支持张嘴、微笑、眨眼、摇头、点头 随机两种组合验证（支持去除特定的动作），低端机离线验证速度正常，1.9.0已经支持UVC红外双目摄像头。
+
+SDK支持Android(5，15]，建议设备配置 CPU为八核64位2.4GHz以上  摄像头RGB 宽动态镜头分辨率720p以上，帧率大于30并且无拖影。
+
+实验室测试效果能覆盖95%的高中低端手机平板，识别成功率>99%；**特殊DIY系统/定制硬件，如USB摄像头，双目摄像头等**如有问题请先提Issues附带系统版本、设备型号、错误log等信息；
+或发邮件到 FaceAISDK.Service@gmail.com ，VIP用户添加 微信：HaoNan19990322 或 WhatsApp: +8618707611416
+
+  **SDK 工作原理简介**
+FaceAISDK 工作原理根据设置好的人脸识别阈值、识别种类的等参数，从系统相机、USB外接摄像头设备甚至RTSP视频流获取连续连续图像帧转为Bitmap后
+送入SDK引擎，同时监听处理SDK返回的各种错误提示和结果。你可以自定义管理视频图像来源，SDK已经演示了系统相机CameraX，USB设备，RTSP流处理。
+
+
+
+## [使用场景和区别](https://github.com/AnyLifeZLB/FaceVerificationSDK/blob/main/doc/Introduce_11_1N_MN.md)
+
+   【1:1】 移动考勤签到、App免密登录、刷脸授权、刷脸解锁、真人校验
+
+   【1:N】 小区门禁、公司门禁、智能门锁、智慧校园、景区、工地、社区、酒店等
+
+   【M:N】 公安布控、人群追踪 监控等等 (测试效果可使用 MN_face_search_test.jpg 模拟)
+
+
+## 接入使用
+
+*   1.首先Gradle 中引入依赖
+    implementation 'io.github.anylifezlb:FaceAISDK:1.9.?' //及时升级到github最新版
+
+*   2.更新本SDK 接入演示代码到最新版本，**熟悉后**Copy Demo代码到你的主工程
+
+*   3.解决项目工程中的第三方依赖库和主工程的冲突比如CameraX的版本等，Target SDK不同导致的冲突
+
+*   4.调整JDK版本到java 11 以上。Android Studio设置Preferences-Build-Gradle-JDK的版本为 11+
+
+*   5.集成过程中的问题可以GitHub 提issues或者详细描述你遇到的问题发邮件到<FaceAISDK.Service@gmail.com>
+
+    目前SDK默认使用java11. kotlin 1.7.20 打包，如果你的项目较老还在使用
+    kapt, kotlin-android-extensions导致集成冲突，建议尽快升级项目或者VIP联系定制
+
+    更多使用说明下载SDK源码工程代码到Android Studio 以及下载Demo APK到手机体验完整的流程和效果
+    里面有详尽的注释说明和使用方法介绍，SDK源码熟悉完成后有一定Android基础大概3小时可集成到你的主工程
+
+
+**其中**
+
+| 模块            | 描述                       |
+|---------------| ------------------------ |
+| appMain       | 主工程，faceAILib 是人脸识别相关源码  |
+| faceAILib     | 人脸识别Lib module模块         |
+| /verify/\*    | 1:1 人脸检测识别，活体检测页面，静态人脸对比 |
+| /UVCCamera/\* | 双目近红外摄像头管理与IR活体检测等  |
+| /search/\*    | 1:N 和 M：N 人脸识别搜索页面，人脸库管理 |
+| /addFaceImage | 人脸识别和搜索共用的添加人脸照片录入模块     |
+
+## Demo 下载体验
+
+   扫码后选择在浏览器中打开点击下载安装，或直接输入地址 https://www.pgyer.com/faceVerify
+
+<div align=center>
+<img src="https://user-images.githubusercontent.com/15169396/210045090-60c073df-ddbd-4747-8e24-f0dce1eccb58.png" width = 22% height = 22% />
+</div>
+  
+
+## 服务定制
+
+   如果SDK不能匹配你的应用场景或需要**特殊双目摄像头活体检测**定制化，请发邮件到FaceAISDK.Service@gmail.com  
+   也可以加微信 [HaoNan19990322 ，备注人脸识别](images/WechatIMG24.jpg)
+   
+   欢迎关注Fork+Star获取最新动态，提出使用建议等 https://github.com/AnyLifeZLB/FaceVerificationSDK
+
+## 提升接入效率，提高SDK识别准确率
+
+### 提升接入效率
+
+1.  去蒲公英下载APK Demo 体验SDK 的基本功能，看看是否满足业务需求；人脸搜索可以一键导入200+张人脸图再录入你自己的
+
+2.  更新GitHub 最新的代码，花1天左右时间熟悉SDK API 和对应的注释备注，断点调试一下基本功能；熟悉后再接入到主工程
+
+3.  欲速则不达，一定要先跑成功SDK接入指引Demo。熟悉后再接入到主工程验证匹配业务功能；有问题可以GitHub 提issues
+
+### 提高SDK识别准确率
+
+1.  使用高配置硬件参数设备和摄像头抗干扰强；保持镜头整洁干净
+2.  录入高质量的人脸图，如（images/face\_example.jpg）（证件照输入目前优化中）
+3.  光线环境好，检测的人脸无遮挡，没有化浓妆 或 粗框眼镜墨镜、口罩等大面积遮挡
+4.  人脸图大于 300*300（人脸部分区域大于200*200）五官清晰无遮挡，图片不能有多人脸
+5.  人脸搜索功能（1:N&M:N）人脸录入不戴粗框的深色眼镜，使用宽动态抗干扰成像清晰摄像头
+
+
+## 常见问题
+   常见问题请参考：https://github.com/AnyLifeZLB/FaceVerificationSDK/blob/main/doc/questions.md  
+   所有的开发测试都在手机和平板进行，特殊定制硬件如 RK3288 等适配需要兼容适配，SDK1.9.0以上版本已经支持UVC
+   协议的USB 双目摄像头IR近红外活体，买对应的USB接口的双目摄像头插入手机USB口就能体验效果（不确定品质联系我推荐）
+
+
+## 快速接入
+   Demo 以main主工程 --> faceAiLib 的方式演示，熟悉本SDK 接入Demo 后可以先Copy faceAiLib到你主工程先跑起来
+   再根据业务情况修改完善。  
+   熟悉后大约3小时就能集成成功，丰富产品功能同时可大大降低公司研发投入实现降本增效。  
+   
+      
+
+![让子弹飞剧照-这是你吗？](https://github.com/user-attachments/assets/dfe7156f-d458-4294-aa25-70aa0216c760)
