@@ -1,3 +1,8 @@
+## 本项目已经合并到主工程 https://github.com/AnyLifeZLB/FaceVerificationSDK
+## 本项目已经合并到主工程 https://github.com/AnyLifeZLB/FaceVerificationSDK
+## 本项目已经合并到主工程 https://github.com/AnyLifeZLB/FaceVerificationSDK
+
+
 <img src="https://badgen.net/badge/FaceAI%20SDK/%20%E5%BF%AB%E9%80%9F%E5%AE%9E%E7%8E%B0%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E5%8A%9F%E8%83%BD" />
 
 <br>
@@ -25,7 +30,7 @@ Umbrella FaceAI SDK on_device Offline Android Face Detection 、Recognition 、L
 </div>
 
 
-## 当前版本说明 V1.9.3 (建议升级到GitHub Demo版本)
+## 当前版本说明 V1.9.5 (建议升级到GitHub Demo版本)
 - 删除不需要权限，上架Google Play认证
 - 优化光线不佳活体检测和录入人脸活体校验
 - 优化SDK体验，支持自定义管理摄像头
@@ -142,4 +147,13 @@ FaceAISDK 工作原理根据设置好的人脸识别阈值、识别种类的等�
    
       
 
-![让子弹飞剧照-这是你吗？](https://github.com/user-attachments/assets/dfe7156f-d458-4294-aa25-70aa0216c760)
+![让子弹飞剧照-这是你吗？](https://github.com/user-attachments/assets/dfe7156f-d458-4294-aa25-70aa0216c760)  
+
+
+
+   ## 本项目已经合并到主工程 https://github.com/AnyLifeZLB/FaceVerificationSDK
+## 本项目已经合并到主工程 https://github.com/AnyLifeZLB/FaceVerificationSDK
+## 本项目已经合并到主工程 https://github.com/AnyLifeZLB/FaceVerificationSDK
+
+
+
